@@ -1,0 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_utils4.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 14:57:24 by ana-pdos          #+#    #+#             */
+/*   Updated: 2025/07/14 18:14:50 by ana-pdos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+void	*file_to_img(t_game *game, char *path)
+{
+	return (mlx_xpm_file_to_image(game->mlx, path, 
+			&game->img_width, &game->img_height));
+}
+
+int	check_images(t_game *game, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (!game->img[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	get_length(t_game *game)
+{
+	char	*line;
+	int		size;
+
+	game->fd = open(game->file_name, O_RDONLY);
+	if (game->fd < 0)
+		return (perror("Wrong file"), close(game->fd), close_window(game));
+	if (bad_extension(game))
+		return (close(game->fd), close_window(game));
+	line = get_next_line(game->fd);
+	game->line_len = ft_strlen(line);
+	size = 1;
+	while (line && size++)
+	{
+		free(line);
+		line = get_next_line(game->fd);
+	}
+	close(game->fd);
+	return (size);
+}
+
+/*int	window_check(t_game *game)
+{
+	int	screen_width;
+	int	screen_height;
+
+	mlx_get_screen_size(game->mlx, &screen_width, &screen_height);
+	if (game->win_width > screen_width || game->win_height > screen_height)
+		return (1);
+	return (0);
+}*/
+
+int	window_check(t_game *game)
+{
+	int	screen_width;
+	int	screen_height;
+
+#ifdef __APPLE__
+	// macOS OpenGL MLX: no mlx_get_screen_size
+	screen_width = 2560;   // or your monitor max width
+	screen_height = 1440;  // or your monitor max height
+#else
+	// Linux MLX
+	mlx_get_screen_size(game->mlx, &screen_width, &screen_height);
+#endif
+
+	if (game->win_width > screen_width || game->win_height > screen_height)
+		return (1);
+	return (0);
+}
