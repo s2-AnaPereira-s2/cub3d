@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long_utils4.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 14:57:24 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/14 18:14:50 by ana-pdos         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -42,44 +31,14 @@ int	get_length(t_game *game)
 		return (perror("Wrong file"), close(game->fd), close_window(game));
 	if (bad_extension(game))
 		return (close(game->fd), close_window(game));
+	size = 0;
 	line = get_next_line(game->fd);
-	game->line_len = ft_strlen(line);
-	size = 1;
-	while (line && size++)
+	while (line)
 	{
+		size++;
 		free(line);
 		line = get_next_line(game->fd);
 	}
 	close(game->fd);
 	return (size);
-}
-
-/*int	window_check(t_game *game)
-{
-	int	screen_width;
-	int	screen_height;
-
-	mlx_get_screen_size(game->mlx, &screen_width, &screen_height);
-	if (game->win_width > screen_width || game->win_height > screen_height)
-		return (1);
-	return (0);
-}*/
-
-int	window_check(t_game *game)
-{
-	int	screen_width;
-	int	screen_height;
-
-#ifdef __APPLE__
-	// macOS OpenGL MLX: no mlx_get_screen_size
-	screen_width = 2560;   // or your monitor max width
-	screen_height = 1440;  // or your monitor max height
-#else
-	// Linux MLX
-	mlx_get_screen_size(game->mlx, &screen_width, &screen_height);
-#endif
-
-	if (game->win_width > screen_width || game->win_height > screen_height)
-		return (1);
-	return (0);
 }

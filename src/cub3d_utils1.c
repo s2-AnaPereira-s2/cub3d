@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long_utils3.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 13:42:19 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/08 19:00:36 by ana-pdos         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_copy(t_game *game)
+/*void	map_copy(t_game *game)
 {
 	int	y;
 
@@ -27,7 +16,7 @@ void	map_copy(t_game *game)
 			return ;
 		y++;
 	}
-}
+}*/
 
 void	get_pn_pos(t_game *game, t_player *player)
 {
@@ -89,9 +78,13 @@ void	get_direction(t_player *player)
 
 int	get_helpers(t_game *game, t_player *player)
 {
-	map_copy(game);
+	get_info(game);
+	get_map(game);
+	//map_copy(game);
 	get_pn_pos(game, player);
 	get_direction(player);
+	get_dir_textures(game);
+	get_colors(game);
 	return (0);
 }
 

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long_utils5.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/14 09:46:09 by ana-pdos          #+#    #+#             */
-/*   Updated: 2025/07/14 18:07:41 by ana-pdos         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -18,14 +7,14 @@ int	char_check(t_game *game)
 	int	j;
 
 	i = 0;
-	while (game->map[i])
+	while (game->map[i] != NULL)
 	{
 		j = 0;
 		while (game->map[i][j] != '\0' && game->map[i][j] != '\n')
 		{
 			if (game->map[i][j] != '1' && game->map[i][j] != 'N' 
 				&& game->map[i][j] != 'S' && game->map[i][j] != 'E' 
-				&& game->map[i][j] != 'W' && game->map[i][j] != '0')
+				&& game->map[i][j] != 'W' && game->map[i][j] != '0' && game->map[i][j] != ' ')
 				return (perror("Wrong char in map"), close_window(game));
 			j++;
 		}

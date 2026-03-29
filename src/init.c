@@ -3,24 +3,17 @@
 
 void	init_game(t_game *game, t_player *player)
 {
-	game->img_width = 0;
-	game->img_height = 0;
+	game->img_width = 32;
+	game->img_height = 32;
 	game->win_width = 0;
 	game->win_height = 0;
 	game->map_height = 0;
-	game->tile_w = 0;
-	game->tile_h = 0;
-	game->line_len = 0;
+	game->info_size = 0;
 	game->fd = -1;
-	game->np_x = 0;
-	game->np_y = 0;
-	game->game_win = 0;
-	game->exit_x = 0;
-	game->exit_y = 0;
-	game->movements = 0;
 	game->p = 0;
 	game->map_cpy = NULL;
 	game->map = NULL;
+	game->info = NULL;
 	game->img = NULL;
 	game->mlx = NULL;
 	game->win = NULL;
@@ -31,4 +24,10 @@ void	init_game(t_game *game, t_player *player)
     player->dirY = 0;
     player->planeX = 0.00;
     player->planeY = 0.00;
+	game->N_path = " ";
+    game->S_path = " ";
+	game->E_path = " ";
+	game->W_path = " ";
+	game->f_color = 0;
+	game->c_color = 0;
 }

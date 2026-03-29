@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/06/18 14:34:13 by ana-pdos          #+#    #+#              #
-#    Updated: 2025/07/14 09:45:44 by ana-pdos         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 NAME = cub3d
 CC = cc
@@ -27,6 +16,7 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/cub3d_utils1.c \
 	$(SRC_DIR)/cub3d_utils2.c \
 	$(SRC_DIR)/cub3d_utils3.c \
+	$(SRC_DIR)/start_map.c \
 	$(SRC_DIR)/draw_map.c \
 	$(SRC_DIR)/move_player.c \
 	$(SRC_DIR)/map_check.c \

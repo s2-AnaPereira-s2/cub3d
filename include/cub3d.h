@@ -29,6 +29,9 @@
 # define BUFFER_SIZE 42
 #endif
 
+#define WIDTH 800
+#define HEIGHT 600
+
 // -------------------- Includes --------------------
 # include "libft/libft.h"
 # include <stddef.h>
@@ -47,28 +50,27 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	void	*mlx_destroy_display;
-	char	**map;
+	char	**info;
+    char	**map;
 	char	**map_cpy;
-	void	**img;
 	char	*file_name;
-	int		img_width;
-	int		img_height;
 	int		win_width;
 	int		win_height;
 	int		map_height;
-	int		tile_w;
-	int		tile_h;
-	int		line_len;
+    int		map_width;
+	int		info_size;
 	int		fd;
 	int		p_x;
 	int		p_y;
 	int		np_x;
 	int		np_y;
-	int		game_win;
-	int		exit_x;
-	int		exit_y;
-	int		movements;
 	int		p;
+    char    *N_path;
+    char    *S_path;
+    char    *E_path;
+    char    *W_path;
+    int     f_color;
+    int     c_color;
 }	t_game;
 
 typedef struct s_player {
@@ -81,15 +83,23 @@ typedef struct s_player {
     double planeY;           // Camera plane (FOV)
 } t_player;
 
+typedef struct s_imgs {
+    void	**img;
+    int		img_width;
+	int		img_height;
+    char    *N_path;
+    char    *S_path;
+    char    *E_path;
+    char    *W_path;
+    int     f_color;
+    int     c_color;
+
+} t_imgs;
+
 // -------------------- Functions --------------------
 
-int		get_image(t_game *game);
-int		get_map(t_game *game);
-int		put_image_map(int y, int x, t_game *game);
-void	draw_map(t_game *game);
-void	get_score(t_game *game);
-int		move_player(t_game *game, int keycode);
-//int		move_check(t_game *game);
+void	get_info(t_game *game);
+int	get_map(t_game *game);
 int		map_check(t_game *game);
 void	map_copy(t_game *game);
 void	get_pn_pos(t_game *game, t_player *player);
@@ -104,5 +114,10 @@ void	init_game(t_game *game, t_player *player);
 int		window_check(t_game *game);
 int		char_check(t_game *game);
 int		bad_extension(t_game *game);
+int	render_frame(t_game *game, t_player *player);
+void	draw_map(t_game *game);
+void draw_player(t_game *game, t_player *player);
+void get_dir_textures(t_game *game);
+void get_colors(t_game *game);
 
 
