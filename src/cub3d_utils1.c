@@ -33,8 +33,8 @@ void	get_pn_pos(t_game *game, t_player *player)
 			{
 				player->dir = game->map[y][x];
 				game->p += 1;
-				player->x = x + 0.5;
-				player->y = y + 0.5;
+				game->px = x + 0.5;
+				game->py = y + 0.5;
 				game->map[y][x] = '0';
 			}
 			x++;
@@ -88,7 +88,24 @@ int	get_helpers(t_game *game, t_player *player)
 	return (0);
 }
 
-int	put_img_window(t_game *game, char *img, int x, int y)
+int	get_length(t_game *game)
 {
-	return (mlx_put_image_to_window(game->mlx, game->win, img, x, y));
+	char	*line;
+	int		size;
+
+	game->fd = open(game->file_name, O_RDONLY);
+	if (game->fd < 0)
+		return (perror("Wrong file"), close(game->fd));
+	if (bad_extension(game))
+		return (close(game->fd));
+	size = 0;
+	line = get_next_line(game->fd);
+	while (line)
+	{
+		size++;
+		free(line);
+		line = get_next_line(game->fd);
+	}
+	close(game->fd);
+	return (size);
 }

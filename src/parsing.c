@@ -8,7 +8,6 @@ void	get_info(t_game *game)
 	game->info_size = get_length(game);
 	if (game->info_size == 0)
 	{
-		close_window(game);
 		return;
 	}
 	game->info = ft_calloc(sizeof(char *), game->info_size + 1);
@@ -18,7 +17,6 @@ void	get_info(t_game *game)
 	if (game->fd < 0)
 	{
 		close(game->fd);
-		close_window(game);
 		return;
 	}
 	game->info_size = 0;
@@ -62,7 +60,7 @@ int	get_map(t_game *game)
 	return (0);
 }
 
-void get_dir_textures(t_game *game, t_imgs *imgs)
+void get_dir_textures(t_game *game)
 {
 	int N_len;
 	int S_len;
@@ -73,13 +71,13 @@ void get_dir_textures(t_game *game, t_imgs *imgs)
 	S_len = ft_strlen(game->info[1]);
 	W_len = ft_strlen(game->info[2]);
 	E_len = ft_strlen(game->info[3]);
-	imgs->N_path = ft_substr(game->info[0], 5, N_len - 6);
-	imgs->S_path = ft_substr(game->info[1], 5, S_len - 6);
-	imgs->W_path = ft_substr(game->info[2], 5, W_len - 6);
-	imgs->E_path = ft_substr(game->info[3], 5, E_len - 6);
+	game->N_path = ft_substr(game->info[0], 5, N_len - 6);
+	game->S_path = ft_substr(game->info[1], 5, S_len - 6);
+	game->W_path = ft_substr(game->info[2], 5, W_len - 6);
+	game->E_path = ft_substr(game->info[3], 5, E_len - 6);
 }
 
-void get_colors(t_game *game, t_imgs *imgs)
+void get_colors(t_game *game)
 {
 	int i;
 	char **f_rgb;
@@ -108,71 +106,14 @@ void get_colors(t_game *game, t_imgs *imgs)
 	r = ft_atoi(f_rgb[0]) << 16;
 	g = ft_atoi(f_rgb[1]) << 8;
 	b = ft_atoi(f_rgb[2]);
-	imgs->f_color = r | g | b;
+	game->f_color = r | g | b;
 	r = ft_atoi(c_rgb[0]) << 16;
 	g = ft_atoi(c_rgb[1]) << 8;
 	b = ft_atoi(c_rgb[2]);
-	imgs->c_color = r | g | b;
+	game->c_color = r | g | b;
 
 }
 
 
-int	get_image(t_imgs *imgs, t_game *game)
-{
-	int	i;
 
-	imgs->img = malloc(sizeof(void *) * (5));
-	if (!imgs->img)
-		return (ft_printf("Error\n"), close_window(game));
-	i = 0;
-	while (i < 5)
-	{
-		imgs->img[i] = NULL;
-		i++;
-	}
-	imgs->img[0] = file_to_img(game, imgs->N_path);
-	imgs->img[1] = file_to_img(game, imgs->S_path);
-	imgs->img[2] = file_to_img(game, imgs->W_path);
-	imgs->img[3] = file_to_img(game, imgs->E_path);
-	if (check_images(game, 4))
-		return (perror("Error: failed to load image\n"), exit(0), 1);
-	return (0);
-}
-
-int	put_image_map(int y, int x, t_game *game, t_imgs *imgs)
-{
-	while (x < game->map_width && game->map[y][x])
-	{
-		if (game->map[y][x] == '1')
-			put_img_window(game, imgs->img[0], imgs->img_width * x, 
-				imgs->img_height * y);
-		else
-			put_img_window(game, imgs->img[1], imgs->img_width * x, 
-				imgs->img_height * y);
-		x++;
-	}
-	return (0);
-}
-
-void draw_player(t_game *game, t_player *player)
-{
-    int px = (int)(player->x * (32 - 16));
-    int py = (int)(player->y * (32 - 16));
-
-    put_img_window(game, game->img[3], px, py);
-}
-
-void	draw_map(t_game *game)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < game->map_height)
-	{
-		x = 0;
-		put_image_map(y, x, game);
-		y++;
-	}
-}
 

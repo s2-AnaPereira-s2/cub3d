@@ -1,23 +1,27 @@
 
 #include "cub3d.h"
 
+// nothing has been cleaned. Program needs to check for leaks and close everything properly. I have to implement it yet!
+
+
+/*
 void	free_images(t_game *game)
 {
 	int	i;
 	int	size;
 
 	size = 11;
-	if (!game->img)
+	if (!imgs->img)
 		return ;
 	i = 0;
 	while (i < size)
 	{
-		if (game->img[i])
-			mlx_destroy_image(game->mlx, game->img[i]);
+		if (imgs->img[i])
+			mlx_destroy_image(game->mlx, imgs->img[i]);
 		i++;
 	}
-	free(game->img);
-	game->img = NULL;
+	free(imgs->img);
+	imgs->img = NULL;
 }
 
 void	free_map_cpy(t_game *game)
@@ -53,42 +57,15 @@ void	free_map(t_game *game)
 	free(game->map);
 	free_map_cpy(game);
 	game->map = NULL;
-}
-
-/*int	close_window(t_game *game)
-{
-	if (game->map)
-		free_map(game);
-	if (game->img)
-		free_images(game);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
-	ft_printf("\n%s\n", "...bye bye!!!");
-	exit(0);
-	return (0);
 }*/
 
 int	close_window(t_game *game)
 {
-	if (game->map)
-		free_map(game);
-	if (game->img)
-		free_images(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
-	{
-		#ifdef __linux__
-			mlx_destroy_display(game->mlx);
-		#endif
-		free(game->mlx);
-	}
-	ft_printf("\n%s\n", "...bye bye!!!");
+		free(game->mlx);  // skip mlx_destroy_display for now just to make it work
+	ft_printf("...bye bye!!!\n");
 	exit(0);
 	return (0);
 }
