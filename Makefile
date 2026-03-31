@@ -2,11 +2,22 @@
 NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-MLX_DIR = minilibx_macos_opengl
 LIBFT_DIR = libft
 INCLUDE_DIR = include
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Linux)
+MLX_DIR = minilibx-linux
+MLX_ARCHIVE = minilibx-linux.tgz
+MLX_LINK = -lXext -lX11 -lm -lz
+else
+MLX_DIR = minilibx_macos_opengl
+MLX_LINK = -framework OpenGL -framework AppKit
+endif
+
 INCLUDES = -I. -I$(MLX_DIR) -I$(LIBFT_DIR) -I$(INCLUDE_DIR)
-MLX_LIBS = $(MLX_DIR)/libmlx.a -framework OpenGL -framework AppKit
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_LIBS = $(MLX_LIB) $(MLX_LINK)
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 SRC_DIR = src
@@ -34,7 +45,20 @@ all: $(NAME)
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME): $(OBJS) $(LIBFT_LIB)
+$(MLX_LIB):
+ifeq ($(UNAME_S),Linux)
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		if [ -f "$(MLX_ARCHIVE)" ]; then \
+			tar -xzf "$(MLX_ARCHIVE)"; \
+		else \
+			echo "Error: $(MLX_DIR) missing and $(MLX_ARCHIVE) not found."; \
+			exit 1; \
+		fi; \
+	fi
+endif
+	$(MAKE) -C $(MLX_DIR) libmlx.a
+
+$(NAME): $(OBJS) $(LIBFT_LIB) $(MLX_LIB)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT_LIB) $(MLX_LIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c include/cub3d.h $(LIBFT_DIR)/libft.h | $(OBJ_DIR)

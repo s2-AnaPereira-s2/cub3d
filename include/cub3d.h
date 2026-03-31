@@ -102,6 +102,12 @@ typedef struct s_game
 	int		p;
     double  px;                // Position
     double  py;                // Position
+    int			key_w;
+    int			key_a;
+    int			key_s;
+    int			key_d;
+    int			key_left;
+    int			key_right;
 
 	char	*N_path;
 	char	*S_path;
@@ -161,6 +167,8 @@ void    perform_dda(t_game *game, t_ray *ray);
 void    calculate_wall(t_game *game, t_ray *ray);
 void    draw_wall(t_game *game, t_ray *ray, int x);
 int     keypress(int keycode, t_game *game);
+    int		keyrelease(int keycode, t_game *game);
+    void	update_movement(t_game *game);
 void    put_pixel(t_img *img, int x, int y, int color);
 
 

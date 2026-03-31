@@ -49,7 +49,7 @@ void draw_minimap(t_game *game)
     while (game->map[y])
     {
         x = 0;
-        while (game->map[y][x])
+        while (game->map[y][x] && game->map[y][x] != '\n')
         {
             if (game->map[y][x] == '1')
                 color = 0xFFFFFF; // wall
@@ -69,8 +69,8 @@ void draw_minimap(t_game *game)
 // I think this is bonus I will double check 
 void draw_player(t_game *game)
 {
-    int px = (int)(game->px * TILE_SIZE);
-    int py = (int)(game->py * TILE_SIZE);
+    int px = MINI_OFFSET_X + (int)(game->px * TILE_SIZE) - PLAYER_SIZE / 2;
+    int py = MINI_OFFSET_Y + (int)(game->py * TILE_SIZE) - PLAYER_SIZE / 2;
 
     draw_square(&game->screen, px, py, PLAYER_SIZE, 0xFF0000);
 }
@@ -79,6 +79,7 @@ int render_frame(void *param)
 {
     t_game *game = (t_game *)param;
 
+    update_movement(game);
     draw_background(game);       // ceiling + floor
     raycast(game, &game->player); // 3D walls
     draw_minimap(game);          // 2D mini-map

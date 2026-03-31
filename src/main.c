@@ -19,7 +19,8 @@ int	main(int argc, char **argv)
 	game.screen.width = game.win_width;
 	game.screen.height = game.win_height;
 	game.file_name = argv[1];
-	get_helpers(&game, &game.player);
+	if (get_helpers(&game, &game.player))
+		return (1);
 	game.screen.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	if (!game.screen.img)
 		return (perror("mlx_new_image failed"), 1);
@@ -29,7 +30,8 @@ int	main(int argc, char **argv)
 		&game.screen.line_length,
 		&game.screen.endian);
 	mlx_loop_hook(game.mlx, render_frame, &game);
-	mlx_key_hook(game.win, keypress, &game);
+	mlx_hook(game.win, 2, 1L << 0, keypress, &game);
+	mlx_hook(game.win, 3, 1L << 1, keyrelease, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
 	
 	mlx_loop(game.mlx);

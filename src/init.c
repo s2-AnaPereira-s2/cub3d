@@ -24,6 +24,12 @@ void	init_game(t_game *game, t_player *player)
 	game->p = 0;
 	game->px = 0.00;
 	game->py = 0.00;
+	game->key_w = 0;
+	game->key_a = 0;
+	game->key_s = 0;
+	game->key_d = 0;
+	game->key_left = 0;
+	game->key_right = 0;
 
 	// Player struct
 	player->dir = ' ';
