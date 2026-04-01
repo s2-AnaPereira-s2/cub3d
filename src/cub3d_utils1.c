@@ -80,8 +80,9 @@ int	get_helpers(t_game *game, t_player *player)
 {
 	get_info(game);
 	get_map(game);
-	//map_copy(game);
 	get_pn_pos(game, player);
+	if (map_check(game))
+		return (close_window(game), 1);
 	get_direction(player);
 	get_dir_textures(game);
 	get_colors(game);

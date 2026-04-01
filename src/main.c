@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 		&game.screen.line_length,
 		&game.screen.endian);
 	mlx_loop_hook(game.mlx, render_frame, &game);
-	mlx_key_hook(game.win, keypress, &game);
+	mlx_hook(game.win, 2, 1L << 0, keypress, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
 	
 	mlx_loop(game.mlx);

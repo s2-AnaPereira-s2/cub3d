@@ -42,14 +42,15 @@
 #define MINI_OFFSET_Y 10 // pixels from top
 #define PLAYER_SIZE (TILE_SIZE / 2)    // red dot size
 
-#define MOVE_SPEED 0.1
-#define ROT_SPEED 0.05
+#define MOVE_SPEED 0.1 * 0.25
+
+#define TEXTURE_WH 600
 
 // -------------------- Includes --------------------
 # include "libft/libft.h"
 # include <stddef.h>
 # include <stdlib.h>
-# include "minilibx_macos_opengl/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -139,7 +140,7 @@ typedef struct s_ray
 
 // -------------------- Functions --------------------
 
-void	get_info(t_game *game);
+int	    get_info(t_game *game);
 int	    get_map(t_game *game);
 int		map_check(t_game *game);
 void	map_copy(t_game *game);

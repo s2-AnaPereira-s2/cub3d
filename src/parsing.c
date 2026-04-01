@@ -1,23 +1,23 @@
 
 #include "cub3d.h"
 
-void	get_info(t_game *game)
+int	get_info(t_game *game)
 {
 	char	*line;
 
 	game->info_size = get_length(game);
 	if (game->info_size == 0)
 	{
-		return;
+		return (perror("empty map"), close_window(game), 1);
 	}
 	game->info = ft_calloc(sizeof(char *), game->info_size + 1);
 	if (!game->info)
-		return ;
+		return 1;
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
 	{
 		close(game->fd);
-		return;
+		return (perror("error to open file"), 1);
 	}
 	game->info_size = 0;
 	line = get_next_line(game->fd);
@@ -30,6 +30,24 @@ void	get_info(t_game *game)
 	}
 	game->info[game->info_size] = NULL;
 	close(game->fd);
+	return 0;
+}
+
+void get_map_width(t_game *game)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j] && game->map[i][j] != '\n')
+			j++;
+		if (game->map_width < j)
+			game->map_width = j;
+		i++;
+	}
 }
 
 int	get_map(t_game *game)
@@ -47,8 +65,8 @@ int	get_map(t_game *game)
 		i++;
 	}
 	game->map = ft_calloc(sizeof(char *), game->map_height + 1);
-	if (!game->map)
-		return (0);
+	if (!game->map || game->map_height == 0)
+		return (perror("No map"), close_window(game), 1);
 	i = 0;
 	while (game->info[map_start])
 	{
@@ -57,6 +75,7 @@ int	get_map(t_game *game)
 		i++;
 	}
 	game->map[i] = NULL;
+	get_map_width(game);
 	return (0);
 }
 
@@ -66,6 +85,7 @@ void get_dir_textures(t_game *game)
 	int S_len;
 	int W_len;
 	int E_len;
+	int text_wh;
 
 	N_len = ft_strlen(game->info[0]);
 	S_len = ft_strlen(game->info[1]);
@@ -75,6 +95,13 @@ void get_dir_textures(t_game *game)
 	game->S_path = ft_substr(game->info[1], 5, S_len - 6);
 	game->W_path = ft_substr(game->info[2], 5, W_len - 6);
 	game->E_path = ft_substr(game->info[3], 5, E_len - 6);
+	game->textures[0].img = mlx_xpm_file_to_image(game->mlx, game->N_path, &text_wh, &text_wh);
+	if (!game->textures[0].img)
+        return (perror("Failed to load texture"));
+    game->textures[0].width = TEXTURE_WH;
+	game->textures[0].height = TEXTURE_WH;
+	game->textures[0].addr = mlx_get_data_addr(game->textures[0].img, &game->textures[0].bits_per_pixel,
+        &game->textures[0].line_length, &game->textures[0].endian);
 }
 
 void get_colors(t_game *game)
@@ -113,6 +140,7 @@ void get_colors(t_game *game)
 	game->c_color = r | g | b;
 
 }
+
 
 
 

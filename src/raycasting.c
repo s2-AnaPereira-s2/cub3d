@@ -96,16 +96,27 @@ void calculate_wall(t_game *game, t_ray *ray)
 
 void draw_wall(t_game *game, t_ray *ray, int x)
 {
-    int y;
-    int color;
+    int y, texX, texY;
+    double wallX;
+    unsigned int color;
+    char *tex_addr;
 
-    color = 0x00FF00; // green
-    if (ray->side == 1)
-        color /= 2; // darker for y-side
-
+    if (ray->side == 0)
+        wallX = game->py + ray->perpWallDist * ray->rayDirY;
+    else
+        wallX = game->px + ray->perpWallDist * ray->rayDirX;
+    wallX -= floor(wallX);
+    texX = (int)(wallX * game->textures[0].width);
     y = ray->drawStart;
     while (y < ray->drawEnd)
     {
+        texY = (int)(((y - ray->drawStart) / (double)(ray->drawEnd - ray->drawStart)) 
+                * game->textures[0].height);
+        
+        tex_addr = game->textures[0].addr 
+            + (texY * game->textures[0].line_length 
+            + texX * (game->textures[0].bits_per_pixel / 8));
+        color = *(unsigned int *)tex_addr;
         put_pixel(&game->screen, x, y, color);
         y++;
     }
@@ -117,8 +128,7 @@ void raycast(t_game *game, t_player *player)
     t_ray ray;
 
     x = 0;
-    while (x < game->win_width) // I need to fix the win_width as its a fixed number 
-                                //I think its wrong cause the player doesn't go in all the map
+    while (x < game->win_width)
     {
         init_ray(game, player, &ray, x);
         perform_dda(game, &ray);
