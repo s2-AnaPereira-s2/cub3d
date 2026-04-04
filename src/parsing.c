@@ -126,7 +126,7 @@ void get_colors(t_game *game)
 		else if (game->info[i][0] == 'C')
 		{
 			c_rgb_len = ft_strlen(game->info[i]);
-			c_rgb = ft_split((ft_substr(game->info[i], 2, f_rgb_len - 3)), ',');
+			c_rgb = ft_split((ft_substr(game->info[i], 2, c_rgb_len - 3)), ',');
 		}
 		i++;
 	}

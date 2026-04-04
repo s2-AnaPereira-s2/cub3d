@@ -1,58 +1,6 @@
 #include "cub3d.h"
 
-// this is almost understood. Need to spend some time on this to understand better this calculations
-
-
-// Step 1: initialize ray for column x
-
-void init_ray(t_game *game, t_player *player, t_ray *ray, int x)
-{
-    double cameraX;
-
-    cameraX = 2 * x / (double)game->win_width - 1;
-
-    ray->rayDirX = player->dirX + player->planeX * cameraX;
-    ray->rayDirY = player->dirY + player->planeY * cameraX;
-
-    ray->mapX = (int)game->px;
-    ray->mapY = (int)game->py;
-
-    if (ray->rayDirX == 0)
-        ray->deltaDistX = 1e30;
-    else
-        ray->deltaDistX = fabs(1 / ray->rayDirX);
-    if (ray->rayDirY == 0)
-        ray->deltaDistY = 1e30;
-    else
-        ray->deltaDistY = fabs(1 / ray->rayDirY);
-    
-    ray->hit = 0;
-
-    if (ray->rayDirX < 0)
-    {
-        ray->stepX = -1;
-        ray->sideDistX = (game->px - ray->mapX) * ray->deltaDistX;
-    }
-    else
-    {
-        ray->stepX = 1;
-        ray->sideDistX = (ray->mapX + 1.0 - game->px) * ray->deltaDistX;
-    }
-
-    if (ray->rayDirY < 0)
-    {
-        ray->stepY = -1;
-        ray->sideDistY = (game->py - ray->mapY) * ray->deltaDistY;
-    }
-    else
-    {
-        ray->stepY = 1;
-        ray->sideDistY = (ray->mapY + 1.0 - game->py) * ray->deltaDistY;
-    }
-}
-
 // Step 2: perform DDA
-
 void perform_dda(t_game *game, t_ray *ray)
 {
     while (ray->hit == 0)
@@ -73,9 +21,7 @@ void perform_dda(t_game *game, t_ray *ray)
             ray->hit = 1;
     }
 }
-
 // Step 3: calculate perpendicular wall distance & line height
-
 void calculate_wall(t_game *game, t_ray *ray)
 {
     if (ray->side == 0)
@@ -96,7 +42,9 @@ void calculate_wall(t_game *game, t_ray *ray)
 
 void draw_wall(t_game *game, t_ray *ray, int x)
 {
-    int y, texX, texY;
+    int y;
+    int texX;
+    int texY;
     double wallX;
     unsigned int color;
     char *tex_addr;
@@ -112,7 +60,6 @@ void draw_wall(t_game *game, t_ray *ray, int x)
     {
         texY = (int)(((y - ray->drawStart) / (double)(ray->drawEnd - ray->drawStart)) 
                 * game->textures[0].height);
-        
         tex_addr = game->textures[0].addr 
             + (texY * game->textures[0].line_length 
             + texX * (game->textures[0].bits_per_pixel / 8));
@@ -130,7 +77,8 @@ void raycast(t_game *game, t_player *player)
     x = 0;
     while (x < game->win_width)
     {
-        init_ray(game, player, &ray, x);
+        init_ray1(game, player, &ray, x);
+        init_ray2(game, &ray);
         perform_dda(game, &ray);
         calculate_wall(game, &ray);
         draw_wall(game, &ray, x);

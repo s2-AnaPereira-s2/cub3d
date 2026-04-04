@@ -77,7 +77,6 @@ void draw_minimap(t_game *game)
     }
 }
 
-// I think this is bonus I will double check 
 void draw_player(t_game *game)
 {
     int px = (int)(game->px * TILE_SIZE);

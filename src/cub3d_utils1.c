@@ -1,23 +1,6 @@
 
 #include "cub3d.h"
 
-/*void	map_copy(t_game *game)
-{
-	int	y;
-
-	y = 0;
-	game->map_cpy = ft_calloc((game->map_height / 32) + 1, sizeof(char *));
-	if (!game->map_cpy)
-		return ;
-	while (game->map[y])
-	{
-		game->map_cpy[y] = ft_strdup(game->map[y]);
-		if (!game->map_cpy[y])
-			return ;
-		y++;
-	}
-}*/
-
 void	get_pn_pos(t_game *game, t_player *player)
 {
 	int	y;
@@ -43,7 +26,7 @@ void	get_pn_pos(t_game *game, t_player *player)
 	}
 }
 
-void	get_direction(t_player *player)
+void	get_direction_NS(t_player *player)
 {
 	if (player->dir == 'N')
 	{
@@ -59,7 +42,11 @@ void	get_direction(t_player *player)
 		player->planeX = -0.66;
     	player->planeY = 0;
 	}
-	else if (player->dir == 'E')
+}
+
+void	get_direction_WE(t_player *player)
+{
+	if (player->dir == 'E')
 	{
     	player->dirX = 1;
     	player->dirY = 0;
@@ -75,15 +62,17 @@ void	get_direction(t_player *player)
 	}
 }
 
-
 int	get_helpers(t_game *game, t_player *player)
 {
+	if (bad_extension(game))
+		return (close_window(game), 1);
 	get_info(game);
 	get_map(game);
 	get_pn_pos(game, player);
 	if (map_check(game))
 		return (close_window(game), 1);
-	get_direction(player);
+	get_direction_NS(player);
+	get_direction_WE(player);
 	get_dir_textures(game);
 	get_colors(game);
 	return (0);
