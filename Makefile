@@ -17,12 +17,16 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/cub3d_utils2.c \
 	$(SRC_DIR)/cub3d_utils3.c \
 	$(SRC_DIR)/start_map.c \
-	$(SRC_DIR)/parsing.c \
+	$(SRC_DIR)/parsing_map.c \
+	$(SRC_DIR)/parsing_texture_color.c \
 	$(SRC_DIR)/move_player.c \
 	$(SRC_DIR)/map_checks.c \
 	$(SRC_DIR)/format_checks.c \
 	$(SRC_DIR)/init.c \
+	$(SRC_DIR)/draw_wall.c \
 	$(SRC_DIR)/raycasting.c \
+	$(SRC_DIR)/minimap.c \
+	$(SRC_DIR)/key_hooks.c \
 	$(SRC_DIR)/clean.c
 
 

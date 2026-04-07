@@ -25,7 +25,6 @@ void pass_text_index(t_game *game)
 		get_text_index(game, i);
 		i++;
 	}
-	printf("\n%d - NO_num\n%d - SO_num\n%d - WE_num\n%d - EA_num\n", game->NO_num, game->SO_num, game->WE_num, game->EA_num);
 }
 
 

@@ -16,8 +16,8 @@ void	get_pn_pos(t_game *game, t_player *player)
 			{
 				player->dir = game->map[y][x];
 				game->p += 1;
-				game->px = x + 0.5;
-				game->py = y + 0.5;
+				game->px = x + 0.5f;
+				game->py = y + 0.5f;
 				game->map[y][x] = '0';
 			}
 			x++;
@@ -69,12 +69,12 @@ int	get_helpers(t_game *game, t_player *player)
 	get_info(game);
 	get_map(game);
 	get_pn_pos(game, player);
+	get_colors(game);
 	if (map_check(game))
 		return (close_window(game), 1);
 	get_direction_NS(player);
 	get_direction_WE(player);
 	get_dir_textures(game);
-	get_colors(game);
 	return (0);
 }
 
@@ -86,8 +86,6 @@ int	get_length(t_game *game)
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
 		return (perror("Wrong file"), close(game->fd));
-	if (bad_extension(game))
-		return (close(game->fd));
 	size = 0;
 	line = get_next_line(game->fd);
 	while (line)

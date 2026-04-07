@@ -9,6 +9,8 @@ void init_textures(t_game *game)
 	game->S_path = NULL;
 	game->E_path = NULL;
 	game->W_path = NULL;
+	game->f_rgb = NULL;
+	game->c_rgb = NULL;
 	game->NO_index = 0;
 	game->SO_index = 0;
 	game->WE_index = 0;
@@ -26,8 +28,6 @@ void init_textures(t_game *game)
 	}
 }
 
-
-
 void	init_game(t_game *game, t_player *player)
 {
 	game->mlx = NULL;
@@ -41,6 +41,12 @@ void	init_game(t_game *game, t_player *player)
 	game->p = 0;
 	game->px = 0.00;
 	game->py = 0.00;
+	game->key_w = 0;
+	game->key_a = 0;
+	game->key_s = 0;
+	game->key_d = 0;
+	game->key_left = 0;
+	game->key_right = 0;
 	player->dir = ' ';
 	player->dirX = 0;
 	player->dirY = 0;

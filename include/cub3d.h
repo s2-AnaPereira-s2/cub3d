@@ -39,7 +39,10 @@
 #define MINI_OFFSET_Y 10 // pixels from top
 #define PLAYER_SIZE (TILE_SIZE / 2)    // red dot size
 
+#define PLAYER_RADIUS 0.20
+
 #define MOVE_SPEED 0.1
+#define ROT_SPEED 0.04
 
 #define TEXTURE_WH 300
 
@@ -99,11 +102,18 @@ typedef struct s_game
 	int		p;
     double  px;                // Position
     double  py;                // Position
-
+    int			key_w;
+    int			key_a;
+    int			key_s;
+    int			key_d;
+    int			key_left;
+    int			key_right;
 	char	*N_path;
 	char	*S_path;
 	char	*E_path;
 	char	*W_path;
+    char    **f_rgb;
+    char    **c_rgb;
     int     NO_index;
     int     SO_index;
     int     WE_index;
@@ -164,6 +174,9 @@ void    perform_dda(t_game *game, t_ray *ray);
 void    calculate_wall(t_game *game, t_ray *ray);
 void    draw_wall(t_game *game, t_ray *ray, int x);
 int     keypress(int keycode, t_game *game);
+int     keyrelease(int keycode, t_game *game);
+void	draw_player(t_game *game);
+void	update_movement(t_game *game);
 void    put_pixel(t_img *img, int x, int y, int color);
 int	    line_len_no_nl(char *line);
 void    init_ray1(t_game *game, t_player *player, t_ray *ray, int x);
@@ -173,3 +186,4 @@ char	map_at(t_game *game, int y, int x);
 void    get_map_width(t_game *game);
 void    pass_text_index(t_game *game);
 int     p_c_d_check(t_game *game);
+void	draw_minimap(t_game *game);

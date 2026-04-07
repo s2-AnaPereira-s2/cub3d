@@ -62,7 +62,7 @@ int	map_check(t_game *game)
 	if (game->p != 1)
 		return (perror("Invalid number of players"), 1);
 	if (p_c_d_check(game))
-		return (perror("Invalid number of colours or textures"), 1);
+		return (1);
 	y = 0;
 	while (game->map[y])
 	{
