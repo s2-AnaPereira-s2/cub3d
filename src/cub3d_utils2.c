@@ -49,5 +49,22 @@ int	bad_extension(t_game *game)
 	return (0);
 }
 
+void get_map_width(t_game *game)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j] && game->map[i][j] != '\n')
+			j++;
+		if (game->map_width < j)
+			game->map_width = j;
+		i++;
+	}
+}
+
 
 

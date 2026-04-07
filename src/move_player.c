@@ -53,7 +53,7 @@ int func_keypress(int keycode, t_game *game, t_player *player)
 {
     double vx;
     double vy;
-
+    
     if (keycode == KEY_W)
     {
         vx = player->dirX * MOVE_SPEED;

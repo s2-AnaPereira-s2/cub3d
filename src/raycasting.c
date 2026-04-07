@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-// Step 2: perform DDA
 void perform_dda(t_game *game, t_ray *ray)
 {
     while (ray->hit == 0)
@@ -21,7 +20,7 @@ void perform_dda(t_game *game, t_ray *ray)
             ray->hit = 1;
     }
 }
-// Step 3: calculate perpendicular wall distance & line height
+
 void calculate_wall(t_game *game, t_ray *ray)
 {
     if (ray->side == 0)
@@ -30,11 +29,9 @@ void calculate_wall(t_game *game, t_ray *ray)
         ray->perpWallDist = (ray->mapY - game->py + (1 - ray->stepY) / 2) / ray->rayDirY;
 
     ray->lineHeight = (int)(game->win_height / ray->perpWallDist);
-
     ray->drawStart = -ray->lineHeight / 2 + game->win_height / 2;
     if (ray->drawStart < 0)
         ray->drawStart = 0;
-
     ray->drawEnd = ray->lineHeight / 2 + game->win_height / 2;
     if (ray->drawEnd >= game->win_height)
         ray->drawEnd = game->win_height - 1;

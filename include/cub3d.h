@@ -104,9 +104,18 @@ typedef struct s_game
 	char	*S_path;
 	char	*E_path;
 	char	*W_path;
-
+    int     NO_index;
+    int     SO_index;
+    int     WE_index;
+    int     EA_index;
+    int     NO_num;
+    int     SO_num;
+    int     WE_num;
+    int     EA_num;
 	int		f_color;
 	int		c_color;
+    int		f_num;
+	int		c_num;
 
 	t_img	screen;        
 	t_img	textures[4];   
@@ -161,3 +170,6 @@ void    init_ray1(t_game *game, t_player *player, t_ray *ray, int x);
 void    init_ray2(t_game *game, t_ray *ray);
 void    init_win_wh(t_game *game);
 char	map_at(t_game *game, int y, int x);
+void    get_map_width(t_game *game);
+void    pass_text_index(t_game *game);
+int     p_c_d_check(t_game *game);

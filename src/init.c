@@ -4,7 +4,19 @@
 void init_textures(t_game *game)
 {
 	int i;
-	
+
+	game->N_path = NULL;
+	game->S_path = NULL;
+	game->E_path = NULL;
+	game->W_path = NULL;
+	game->NO_index = 0;
+	game->SO_index = 0;
+	game->WE_index = 0;
+	game->EA_index = 0;
+	game->NO_num = 0;
+	game->SO_num = 0;
+	game->WE_num = 0;
+	game->EA_num = 0;
 	i = 0;
 	while (i < 4)
 	{
@@ -13,6 +25,8 @@ void init_textures(t_game *game)
 		i++;
 	}
 }
+
+
 
 void	init_game(t_game *game, t_player *player)
 {
@@ -32,18 +46,14 @@ void	init_game(t_game *game, t_player *player)
 	player->dirY = 0;
 	player->planeX = 0.0;
 	player->planeY = 0.0;
-	game->N_path = NULL;
-	game->S_path = NULL;
-	game->E_path = NULL;
-	game->W_path = NULL;
 	game->f_color = 0;
 	game->c_color = 0;
+	game->f_num = 0;
+	game->c_num = 0;
 	game->screen.img = NULL;
 	game->screen.addr = NULL;
 	init_textures(game);
 }
-
-// Step 1: initialize ray for column x
 
 void init_ray1(t_game *game, t_player *player, t_ray *ray, int x)
 {
