@@ -47,31 +47,31 @@ void	get_direction(t_player *player)
 {
 	if (player->dir == 'N')
 	{
-    	player->dirX = 0;
-    	player->dirY = -1;
-		player->planeX = 0.66;
-    	player->planeY = 0;
+    	player->dir_x = 0;
+    	player->dir_y = -1;
+		player->plane_x = 0.66;
+    	player->plane_y = 0;
 	}
 	else if (player->dir == 'S')
 	{
-    	player->dirX = 0;
-    	player->dirY = 1;
-		player->planeX = -0.66;
-    	player->planeY = 0;
+    	player->dir_x = 0;
+    	player->dir_y = 1;
+		player->plane_x = -0.66;
+    	player->plane_y = 0;
 	}
 	else if (player->dir == 'E')
 	{
-    	player->dirX = 1;
-    	player->dirY = 0;
-		player->planeX = 0;
-    	player->planeY = 0.66;
+    	player->dir_x = 1;
+    	player->dir_y = 0;
+		player->plane_x = 0;
+    	player->plane_y = 0.66;
 	}
 	else if (player->dir == 'W')
 	{
-    	player->dirX = -1;
-    	player->dirY = 0;
-		player->planeX = 0;
-    	player->planeY = -0.66;
+    	player->dir_x = -1;
+    	player->dir_y = 0;
+		player->plane_x = 0;
+    	player->plane_y = -0.66;
 	}
 }
 
@@ -82,11 +82,11 @@ int	get_helpers(t_game *game, t_player *player)
 	get_map(game);
 	//map_copy(game);
 	get_pn_pos(game, player);
+	get_colors(game);
 	if (map_check(game))
 		return (1);
 	get_direction(player);
 	get_dir_textures(game);
-	get_colors(game);
 	return (0);
 }
 
