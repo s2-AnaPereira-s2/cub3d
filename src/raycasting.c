@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void perform_dda(t_game *game, t_ray *ray)
+static void perform_dda(t_game *game, t_ray *ray)
 {
     while (ray->hit == 0)
     {
@@ -16,7 +16,7 @@ void perform_dda(t_game *game, t_ray *ray)
             ray->mapY += ray->stepY;
             ray->side = 1;
         }
-        if (game->map[ray->mapY][ray->mapX] == '1')
+        if (map_at(game, ray->mapY, ray->mapX) == '1')
             ray->hit = 1;
     }
 }

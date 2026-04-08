@@ -6,7 +6,6 @@ void calculate_wall(t_game *game, t_ray *ray)
         ray->perpWallDist = (ray->mapX - game->px + (1 - ray->stepX) / 2) / ray->rayDirX;
     else
         ray->perpWallDist = (ray->mapY - game->py + (1 - ray->stepY) / 2) / ray->rayDirY;
-
     ray->lineHeight = (int)(game->win_height / ray->perpWallDist);
     ray->drawStart = -ray->lineHeight / 2 + game->win_height / 2;
     if (ray->drawStart < 0)
@@ -16,13 +15,13 @@ void calculate_wall(t_game *game, t_ray *ray)
         ray->drawEnd = game->win_height - 1;
 }
 
-int get_index_wall(t_ray *ray)
+int text_index_wall(t_ray *ray)
 {
 
     if (ray->side == 0)  // Vertical wall (East/West)
     {
         if (ray->stepX == 1)
-            return (3);  // East wall
+            return 3;  // East wall
         else
             return 2;  // West wall
     }
@@ -38,12 +37,17 @@ int get_index_wall(t_ray *ray)
 double get_wallX(t_game *game, t_ray *ray)
 {
     double wallX;
+    double intersection_x;
+    double intersection_y;
 
+    intersection_x = game->px + ray->perpWallDist * ray->rayDirX;
+    intersection_y = game->py + ray->perpWallDist * ray->rayDirY;
     if (ray->side == 0)
-        wallX = game->py + ray->perpWallDist * ray->rayDirY;
+        wallX = intersection_y - floor(intersection_y);
     else
-        wallX = game->px + ray->perpWallDist * ray->rayDirX;
-    wallX -= floor(wallX);
+        wallX = intersection_x - floor(intersection_x);
+    if (wallX < 0)
+        wallX += 1.0;
     return (wallX);
 }
 
@@ -57,7 +61,7 @@ void draw_wall(t_game *game, t_ray *ray, int x)
     unsigned int color;
     char *tex_addr;
 
-    tex_index = get_index_wall(ray);
+    tex_index = text_index_wall(ray);
     wallX = get_wallX(game, ray);
     texX = (int)(wallX * game->textures[tex_index].width);
     y = ray->drawStart;

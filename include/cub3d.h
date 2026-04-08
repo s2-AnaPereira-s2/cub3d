@@ -29,19 +29,14 @@
 # define BUFFER_SIZE 42
 #endif
 
-#define NO 0
-#define SO 1
-#define WE 2
-#define EA 3
-
 #define TILE_SIZE 10
 #define MINI_OFFSET_X 10 // pixels from left
 #define MINI_OFFSET_Y 10 // pixels from top
 #define PLAYER_SIZE (TILE_SIZE / 2)    // red dot size
 
-#define PLAYER_RADIUS 0.20
+#define PLAYER_RADIUS 0.2
 
-#define MOVE_SPEED 0.1
+#define MOVE_SPEED 0.1 * 0.5
 #define ROT_SPEED 0.04
 
 #define TEXTURE_WH 300

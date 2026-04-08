@@ -3,38 +3,39 @@
 
 void load_text_img(t_game *game)
 {
-	int text_wh;
+	int text_width;
+	int text_height;
 
-	game->textures[0].img = mlx_xpm_file_to_image(game->mlx, game->N_path, &text_wh, &text_wh);
+	game->textures[0].img = mlx_xpm_file_to_image(game->mlx, game->N_path, &text_width, &text_height);
 	if (!game->textures[0].img)
         return (perror("Failed to load texture"));
-	game->textures[1].img = mlx_xpm_file_to_image(game->mlx, game->S_path, &text_wh, &text_wh);
+	game->textures[0].width = text_width;
+    game->textures[0].height = text_height;
+	game->textures[1].img = mlx_xpm_file_to_image(game->mlx, game->S_path, &text_width, &text_height);
 	if (!game->textures[1].img)
         return (perror("Failed to load texture"));
-	game->textures[2].img = mlx_xpm_file_to_image(game->mlx, game->W_path, &text_wh, &text_wh);
+	game->textures[1].width = text_width;
+    game->textures[1].height = text_height;
+	game->textures[2].img = mlx_xpm_file_to_image(game->mlx, game->W_path, &text_width, &text_height);
 	if (!game->textures[2].img)
         return (perror("Failed to load texture"));
-	game->textures[3].img = mlx_xpm_file_to_image(game->mlx, game->E_path, &text_wh, &text_wh);
+	game->textures[2].width = text_width;
+    game->textures[2].height = text_height;
+	game->textures[3].img = mlx_xpm_file_to_image(game->mlx, game->E_path, &text_width, &text_height);
 	if (!game->textures[3].img)
         return (perror("Failed to load texture"));
+	game->textures[3].width = text_width;
+    game->textures[3].height = text_height;
 }
 
 void pass_text_imgstruct(t_game *game)
 {
-	game->textures[0].width = TEXTURE_WH;
-	game->textures[0].height = TEXTURE_WH;
 	game->textures[0].addr = mlx_get_data_addr(game->textures[0].img, &game->textures[0].bits_per_pixel,
         &game->textures[0].line_length, &game->textures[0].endian);
-	game->textures[1].width = TEXTURE_WH;
-	game->textures[1].height = TEXTURE_WH;
 	game->textures[1].addr = mlx_get_data_addr(game->textures[1].img, &game->textures[1].bits_per_pixel,
         &game->textures[1].line_length, &game->textures[1].endian);
-	game->textures[2].width = TEXTURE_WH;
-	game->textures[2].height = TEXTURE_WH;
 	game->textures[2].addr = mlx_get_data_addr(game->textures[2].img, &game->textures[2].bits_per_pixel,
         &game->textures[2].line_length, &game->textures[2].endian);
-	game->textures[3].width = TEXTURE_WH;
-	game->textures[3].height = TEXTURE_WH;
 	game->textures[3].addr = mlx_get_data_addr(game->textures[3].img, &game->textures[3].bits_per_pixel,
         &game->textures[3].line_length, &game->textures[3].endian);
 }
