@@ -7,7 +7,7 @@ int	get_info(t_game *game)
 
 	game->info_size = get_length(game);
 	if (game->info_size == 0)
-		return (perror("empty map"), close_window(game), 1);
+		return (perror("empty map"), 1);
 	game->info = ft_calloc(sizeof(char *), game->info_size + 1);
 	if (!game->info)
 		return 1;
@@ -45,7 +45,7 @@ int	get_map(t_game *game)
 	}
 	game->map = ft_calloc(sizeof(char *), game->map_height + 1);
 	if (!game->map || game->map_height == 0)
-		return (perror("No map"), close_window(game), 1);
+		return (perror("No map"), 1);
 	i = 0;
 	while (game->info[map_start])
 	{

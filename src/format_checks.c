@@ -26,9 +26,9 @@ int colors_format(t_game *game)
 int p_c_d_check(t_game *game)
 {
 	if (colors_format(game))
-		return (perror("Invalid rgb colors numbers"), 1);
+		return (perror("Invalid rgb colors numbers"), close_window(game), 1);
 	if (game->f_num != 1 || game->c_num != 1 || game->NO_num != 1 || game->SO_num != 1 || game->WE_num != 1 || game->EA_num != 1)
-		return (perror("Invalid number of colors or textures"), 1);
+		return (perror("Invalid number of colors or textures"), close_window(game), 1);
 	return 0;
 }
 

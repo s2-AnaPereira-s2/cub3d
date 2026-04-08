@@ -18,17 +18,39 @@ static void	draw_square(t_game *game, int x, int y, int color)
 	}
 }
 
+void	draw_background_mini(t_game *game)
+{
+	int	y;
+	int	x;
+	int	color;
+
+	color = 0x5C4033;
+	y = 0;
+	while (y < game->map_height)
+	{
+		x = 0;
+		while (x < game->map_width)
+		{
+			draw_square(game, MINI_OFFSET_X + x * TILE_SIZE,
+				MINI_OFFSET_Y + y * TILE_SIZE, color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_minimap(t_game *game)
 {
 	int	y;
 	int	x;
 	int	color;
 
+	draw_background_mini(game);
 	y = 0;
 	while (y < game->map_height)
 	{
 		x = 0;
-		while (x < game->map_width)
+		while (x < game->map_width && x < line_len_no_nl(game->map[y]))
 		{
 			if (game->map[y][x] == '1')
 				color = 0xFFFFFF;

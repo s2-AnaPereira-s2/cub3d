@@ -109,6 +109,9 @@ typedef struct s_game
 	char	*W_path;
     char    **f_rgb;
     char    **c_rgb;
+    int     tex_index;
+    int     texX;
+    double  step;
     int     NO_index;
     int     SO_index;
     int     WE_index;
@@ -119,6 +122,8 @@ typedef struct s_game
     int     EA_num;
 	int		f_color;
 	int		c_color;
+    int     f_rgb_len;
+	int     c_rgb_len;
     int		f_num;
 	int		c_num;
 
@@ -154,7 +159,6 @@ int	    get_info(t_game *game);
 int	    get_map(t_game *game);
 int		map_check(t_game *game);
 void	get_pn_pos(t_game *game, t_player *player);
-void	get_direction(t_player *player);
 int		get_helpers(t_game *game, t_player *player);
 int	    get_length(t_game *game);
 void	init_game(t_game *game, t_player *player);

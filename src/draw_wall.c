@@ -51,29 +51,51 @@ double get_wallX(t_game *game, t_ray *ray)
     return (wallX);
 }
 
+static double get_text_pos(t_game *game, t_ray *ray)
+{
+    double          wallX;
+    double          tex_pos;
+
+    game->tex_index = text_index_wall(ray);
+    wallX = get_wallX(game, ray);
+    game->texX = (int)(wallX * game->textures[game->tex_index].width);
+    if (ray->side == 0 && ray->rayDirX > 0)
+        game->texX = game->textures[game->tex_index].width - game->texX - 1;
+    if (ray->side == 1 && ray->rayDirY < 0)
+        game->texX = game->textures[game->tex_index].width - game->texX - 1;
+    if (game->texX < 0)
+        game->texX = 0;
+    if (game->texX >= game->textures[game->tex_index].width)
+        game->texX = game->textures[game->tex_index].width - 1;
+    game->step = 1.0 * game->textures[game->tex_index].height / ray->lineHeight;
+    tex_pos = (ray->drawStart - game->win_height / 2 + ray->lineHeight / 2)
+        * game->step;
+    return (tex_pos);
+}
+
 void draw_wall(t_game *game, t_ray *ray, int x)
 {
-    int y;
-    int texX;
-    int texY;
-    double wallX;
-    int tex_index;
-    unsigned int color;
-    char *tex_addr;
+    int             y;
+    int             texY;
+    double          tex_pos;
+    unsigned int    color;
+    char            *tex_addr;
 
-    tex_index = text_index_wall(ray);
-    wallX = get_wallX(game, ray);
-    texX = (int)(wallX * game->textures[tex_index].width);
+    tex_pos = get_text_pos(game, ray);
     y = ray->drawStart;
-    while (y < ray->drawEnd)
+    while (y <= ray->drawEnd)
     {
-        texY = (int)(((y - ray->drawStart) / (double)(ray->drawEnd - ray->drawStart)) 
-                * game->textures[tex_index].height);
-        tex_addr = game->textures[tex_index].addr 
-            + (texY * game->textures[tex_index].line_length 
-            + texX * (game->textures[tex_index].bits_per_pixel / 8));
+        texY = (int)tex_pos;
+        if (texY < 0)
+            texY = 0;
+        if (texY >= game->textures[game->tex_index].height)
+            texY = game->textures[game->tex_index].height - 1;
+        tex_addr = game->textures[game->tex_index].addr 
+            + (texY * game->textures[game->tex_index].line_length 
+            + game->texX * (game->textures[game->tex_index].bits_per_pixel / 8));
         color = *(unsigned int *)tex_addr;
         put_pixel(&game->screen, x, y, color);
+        tex_pos += game->step;
         y++;
     }
 }

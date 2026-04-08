@@ -1,31 +1,32 @@
 
 #include "cub3d.h"
 
-void load_text_img(t_game *game)
+int load_text_img(t_game *game)
 {
 	int text_width;
 	int text_height;
 
 	game->textures[0].img = mlx_xpm_file_to_image(game->mlx, game->N_path, &text_width, &text_height);
 	if (!game->textures[0].img)
-        return (perror("Failed to load texture"));
+        return (perror("Failed to load texture"), close_window(game), 1);
 	game->textures[0].width = text_width;
     game->textures[0].height = text_height;
 	game->textures[1].img = mlx_xpm_file_to_image(game->mlx, game->S_path, &text_width, &text_height);
 	if (!game->textures[1].img)
-        return (perror("Failed to load texture"));
+        return (perror("Failed to load texture"), close_window(game), 1);
 	game->textures[1].width = text_width;
     game->textures[1].height = text_height;
 	game->textures[2].img = mlx_xpm_file_to_image(game->mlx, game->W_path, &text_width, &text_height);
 	if (!game->textures[2].img)
-        return (perror("Failed to load texture"));
+        return (perror("Failed to load texture"), close_window(game), 1);
 	game->textures[2].width = text_width;
     game->textures[2].height = text_height;
 	game->textures[3].img = mlx_xpm_file_to_image(game->mlx, game->E_path, &text_width, &text_height);
 	if (!game->textures[3].img)
-        return (perror("Failed to load texture"));
+        return (perror("Failed to load texture"), close_window(game), 1);
 	game->textures[3].width = text_width;
     game->textures[3].height = text_height;
+	return 0;
 }
 
 void pass_text_imgstruct(t_game *game)
@@ -79,22 +80,25 @@ void pass_colors(t_game *game)
 void get_colors(t_game *game)
 {
 	int i;
-	int f_rgb_len;
-	int c_rgb_len;
+	char *temp;
 
 	i = 0;
 	while (game->info[i])
 	{
 		if (game->info[i][0] == 'F')
 		{
-			f_rgb_len = ft_strlen(game->info[i]);
-			game->f_rgb = ft_split((ft_substr(game->info[i], 2, f_rgb_len - 3)), ',');
+			game->f_rgb_len = ft_strlen(game->info[i]);
+			temp = ft_substr(game->info[i], 2, game->f_rgb_len - 3);
+			game->f_rgb = ft_split(temp, ',');
+			free(temp);
 			game->f_num++;
 		}
 		else if (game->info[i][0] == 'C')
 		{
-			c_rgb_len = ft_strlen(game->info[i]);
-			game->c_rgb = ft_split((ft_substr(game->info[i], 2, c_rgb_len - 3)), ',');
+			game->c_rgb_len = ft_strlen(game->info[i]);
+			temp = ft_substr(game->info[i], 2, game->c_rgb_len - 3);
+			game->c_rgb = ft_split(temp, ',');
+			free(temp);
 			game->c_num++;
 		}
 		i++;

@@ -28,7 +28,6 @@ void	free_images(t_game *game)
 		if (game->textures[i].img)
 		{
 			mlx_destroy_image(game->mlx, game->textures[i].img);
-			free(game->textures[i].img);
 			game->textures[i].img = NULL;
 		}
 		i++;
@@ -42,19 +41,20 @@ void	free_map(t_game *game)
 	i = 0;
 	if (!game->map)
 		return ;
-	while (game->map && game->map[i])
-	{
-		free(game->map[i]);
-		game->map[i] = NULL;
-		i++;
-	}
 	free(game->map);
 	game->map = NULL;
 }
 
+void free_paths(t_game *game)
+{
+    free(game->N_path);
+    free(game->S_path);
+    free(game->E_path);
+    free(game->W_path);
+}
+
 int	close_window(t_game *game)
 {
-
     free_images(game);
     if (game->screen.img)
         mlx_destroy_image(game->mlx, game->screen.img);
@@ -66,11 +66,7 @@ int	close_window(t_game *game)
         free_arrays(game->f_rgb);
     if (game->c_rgb)
         free_arrays(game->c_rgb);
-    free(game->N_path);
-    free(game->S_path);
-    free(game->E_path);
-    free(game->W_path);
-    free(game->file_name);
+    free_paths(game);
     if (game->win)
         mlx_destroy_window(game->mlx, game->win);
     if (game->mlx)

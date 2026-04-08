@@ -19,6 +19,8 @@ void init_textures(t_game *game)
 	game->SO_num = 0;
 	game->WE_num = 0;
 	game->EA_num = 0;
+	game->tex_index = 0;
+	game->step = 0.0;
 	i = 0;
 	while (i < 4)
 	{
@@ -54,6 +56,8 @@ void	init_game(t_game *game, t_player *player)
 	player->planeY = 0.0;
 	game->f_color = 0;
 	game->c_color = 0;
+	game->f_rgb_len = 0;
+	game->c_rgb_len = 0;
 	game->f_num = 0;
 	game->c_num = 0;
 	game->screen.img = NULL;

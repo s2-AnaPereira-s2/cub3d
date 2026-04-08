@@ -64,10 +64,8 @@ void	get_direction_WE(t_player *player)
 
 int	get_helpers(t_game *game, t_player *player)
 {
-	if (bad_extension(game))
+	if (bad_extension(game) || get_info(game) || get_map(game))
 		return (close_window(game), 1);
-	get_info(game);
-	get_map(game);
 	get_pn_pos(game, player);
 	get_colors(game);
 	if (map_check(game))
@@ -85,7 +83,7 @@ int	get_length(t_game *game)
 
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
-		return (perror("Wrong file"), close(game->fd));
+		return (perror("Wrong file"), close(game->fd), close_window(game), 1);
 	size = 0;
 	line = get_next_line(game->fd);
 	while (line)
