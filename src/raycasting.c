@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void perform_dda(t_game *game, t_ray *ray)
+void perform_dda(t_game *game, t_ray *ray)
 {
     while (ray->hit == 0)
     {

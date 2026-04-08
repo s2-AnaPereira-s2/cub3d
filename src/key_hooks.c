@@ -3,7 +3,7 @@
 int	keypress(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
-		return (close_window(game));
+		return (close_window(game), 1);
 	if (keycode == KEY_W)
 		game->key_w = 1;
 	if (keycode == KEY_A)

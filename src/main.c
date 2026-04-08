@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		return (0);
 	init_game(&game, &game.player);
 	if (init_window_and_image(&game))
-		return (1);
+		return (close_window(&game), 1);
 	game.file_name = argv[1];
 	get_helpers(&game, &game.player);
 	mlx_loop_hook(game.mlx, render_frame, &game);

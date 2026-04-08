@@ -1,44 +1,38 @@
 
 #include "cub3d.h"
 
-// nothing has been cleaned. Program needs to check for leaks and close everything properly. I have to implement it yet!
+void	free_arrays(char **split)
+{
+    int	i;
 
+    if (!split)
+        return ;
+    i = 0;
+    while (split[i])
+    {
+        free(split[i]);
+        i++;
+    }
+    free(split);
+}
 
-/*
 void	free_images(t_game *game)
 {
 	int	i;
 	int	size;
 
-	size = 11;
-	if (!imgs->img)
-		return ;
+	size = 4;
 	i = 0;
 	while (i < size)
 	{
-		if (imgs->img[i])
-			mlx_destroy_image(game->mlx, imgs->img[i]);
+		if (game->textures[i].img)
+		{
+			mlx_destroy_image(game->mlx, game->textures[i].img);
+			free(game->textures[i].img);
+			game->textures[i].img = NULL;
+		}
 		i++;
 	}
-	free(imgs->img);
-	imgs->img = NULL;
-}
-
-void	free_map_cpy(t_game *game)
-{
-	int	i;
-
-	if (!game->map_cpy)
-		return ;
-	i = 0;
-	while (game->map_cpy[i])
-	{
-		free(game->map_cpy[i]);
-		game->map_cpy[i] = NULL;
-		i++;
-	}
-	free(game->map_cpy);
-	game->map_cpy = NULL;
 }
 
 void	free_map(t_game *game)
@@ -55,17 +49,36 @@ void	free_map(t_game *game)
 		i++;
 	}
 	free(game->map);
-	free_map_cpy(game);
 	game->map = NULL;
-}*/
+}
 
 int	close_window(t_game *game)
 {
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-		free(game->mlx);  // skip mlx_destroy_display for now just to make it work
-	ft_printf("...bye bye!!!\n");
-	exit(0);
-	return (0);
+
+    free_images(game);
+    if (game->screen.img)
+        mlx_destroy_image(game->mlx, game->screen.img);
+    if (game->map)
+        free_map(game);
+    if (game->info)
+        free_arrays(game->info);
+    if (game->f_rgb)
+        free_arrays(game->f_rgb);
+    if (game->c_rgb)
+        free_arrays(game->c_rgb);
+    free(game->N_path);
+    free(game->S_path);
+    free(game->E_path);
+    free(game->W_path);
+    free(game->file_name);
+    if (game->win)
+        mlx_destroy_window(game->mlx, game->win);
+    if (game->mlx)
+    {
+        mlx_destroy_display(game->mlx);
+        free(game->mlx);
+    }
+    ft_printf("...bye bye!!!\n");
+    exit(0);
+    return (0);
 }
