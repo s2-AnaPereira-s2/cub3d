@@ -1,27 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/09 15:44:42 by ana-pdos          #+#    #+#             */
+/*   Updated: 2026/04/09 15:46:52 by ana-pdos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# ifdef __APPLE__
-#  define KEY_UP 126
-#  define KEY_DOWN 125
-#  define KEY_LEFT 123
-#  define KEY_RIGHT 124
-#  define KEY_ESC 53
-#  define KEY_W 13
-#  define KEY_A 0
-#  define KEY_S 1
-#  define KEY_D 2
-# else
-#  define KEY_UP 65362
-#  define KEY_DOWN 65364
-#  define KEY_LEFT 65361
-#  define KEY_RIGHT 65363
-#  define KEY_ESC 65307
-#  define KEY_W 119
-#  define KEY_A 97
-#  define KEY_S 115
-#  define KEY_D 100
-# endif
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -32,8 +32,8 @@
 # define MINI_OFFSET_Y 10
 # define PLAYER_SIZE 5
 # define PLAYER_RADIUS 0.2
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.04
+# define MOVE_SPEED 0.1
+# define ROT_SPEED 0.05
 # define TEXTURE_WH 300
 
 # include "libft/libft.h"

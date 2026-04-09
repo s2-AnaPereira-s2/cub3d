@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/09 15:37:32 by ana-pdos          #+#    #+#             */
+/*   Updated: 2026/04/09 15:37:34 by ana-pdos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	init_textures(t_game *game)
@@ -10,15 +22,6 @@ void	init_textures(t_game *game)
 	game->w_path = NULL;
 	game->f_rgb = NULL;
 	game->c_rgb = NULL;
-	game->no_index = 0;
-	game->so_index = 0;
-	game->we_index = 0;
-	game->ea_index = 0;
-	game->no_num = 0;
-	game->so_num = 0;
-	game->we_num = 0;
-	game->ea_num = 0;
-	game->tex_index = 0;
 	game->step = 0.0;
 	i = 0;
 	while (i < 4)
@@ -34,8 +37,6 @@ void	init_game(t_game *game, t_player *player)
 	ft_bzero(game, sizeof(t_game));
 	game->fd = -1;
 	player->dir = ' ';
-	player->dir_x = 0;
-	player->dir_y = 0;
 	player->plane_x = 0.0;
 	player->plane_y = 0.0;
 	init_textures(game);
