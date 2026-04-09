@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:44:42 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:46:52 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/09 17:07:50 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_game
 	int			key_d;
 	int			key_left;
 	int			key_right;
+	char		**paths;
 	char		*n_path;
 	char		*s_path;
 	char		*e_path;

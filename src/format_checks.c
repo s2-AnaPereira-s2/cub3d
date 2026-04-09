@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:37:26 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:37:28 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/09 18:43:03 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,15 @@ int	bad_extension(t_game *game)
 		i++;
 	}
 	return (0);
+}
+
+static int file_order_check(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (i < game->info_size)
+	{
+		if(game->info[i][0] != 'N' )
+	}
 }
