@@ -13,9 +13,9 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRCS = $(SRC_DIR)/main.c \
-	$(SRC_DIR)/cub3d_utils1.c \
-	$(SRC_DIR)/cub3d_utils2.c \
-	$(SRC_DIR)/cub3d_utils3.c \
+	$(SRC_DIR)/startup_parsing.c \
+	$(SRC_DIR)/map_parsing_utils.c \
+	$(SRC_DIR)/texture_parsing.c \
 	$(SRC_DIR)/start_map.c \
 	$(SRC_DIR)/parsing_map.c \
 	$(SRC_DIR)/parsing_texture_color.c \
@@ -33,30 +33,37 @@ SRCS = $(SRC_DIR)/main.c \
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 
-.PHONY: all clean fclean re 
+.PHONY: clean fclean re
 
 
 all: $(NAME)
 
 $(LIBFT_LIB):
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) --no-print-directory -s -C $(LIBFT_DIR)
+	@echo "built: libft"
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT_LIB) $(MLX_LIBS) -o $(NAME)
+	@echo "compiled: object files"
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT_LIB) $(MLX_LIBS) -o $(NAME)
+	@echo "built: $(NAME)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c include/cub3d.h $(LIBFT_DIR)/libft.h | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+	@echo "created: $(OBJ_DIR)"
 
 clean:
-	rm -rf $(OBJ_DIR)
-	$(MAKE) clean -C $(LIBFT_DIR)
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) --no-print-directory -s clean -C $(LIBFT_DIR)
+	@echo "cleaned: object files"
 
 fclean: clean
-	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
+	@rm -f $(NAME)
+	@$(MAKE) --no-print-directory -s fclean -C $(LIBFT_DIR)
+	@echo "cleaned: $(NAME)"
 
 re: fclean all
+	@echo "rebuilt: $(NAME)"

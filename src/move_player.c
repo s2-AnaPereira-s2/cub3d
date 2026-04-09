@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 static int	can_move_to(t_game *game, double x, double y)
@@ -38,28 +37,28 @@ static void	rotate_player(t_player *player, double rot)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	old_dir_x = player->dirX;
-	player->dirX = player->dirX * cos(rot) - player->dirY * sin(rot);
-	player->dirY = old_dir_x * sin(rot) + player->dirY * cos(rot);
-	old_plane_x = player->planeX;
-	player->planeX = player->planeX * cos(rot) - player->planeY * sin(rot);
-	player->planeY = old_plane_x * sin(rot) + player->planeY * cos(rot);
+	old_dir_x = player->dir_x;
+	player->dir_x = player->dir_x * cos(rot) - player->dir_y * sin(rot);
+	player->dir_y = old_dir_x * sin(rot) + player->dir_y * cos(rot);
+	old_plane_x = player->plane_x;
+	player->plane_x = player->plane_x * cos(rot) - player->plane_y * sin(rot);
+	player->plane_y = old_plane_x * sin(rot) + player->plane_y * cos(rot);
 }
 
 void	update_movement(t_game *game)
 {
 	if (game->key_w)
-		move_player(game, game->player.dirX * MOVE_SPEED,
-			game->player.dirY * MOVE_SPEED);
+		move_player(game, game->player.dir_x * MOVE_SPEED,
+			game->player.dir_y * MOVE_SPEED);
 	if (game->key_s)
-		move_player(game, -game->player.dirX * MOVE_SPEED,
-			-game->player.dirY * MOVE_SPEED);
+		move_player(game, -game->player.dir_x * MOVE_SPEED,
+			-game->player.dir_y * MOVE_SPEED);
 	if (game->key_d)
-		move_player(game, game->player.planeX * MOVE_SPEED,
-			game->player.planeY * MOVE_SPEED);
+		move_player(game, game->player.plane_x * MOVE_SPEED,
+			game->player.plane_y * MOVE_SPEED);
 	if (game->key_a)
-		move_player(game, -game->player.planeX * MOVE_SPEED,
-			-game->player.planeY * MOVE_SPEED);
+		move_player(game, -game->player.plane_x * MOVE_SPEED,
+			-game->player.plane_y * MOVE_SPEED);
 	if (game->key_left)
 		rotate_player(&game->player, -ROT_SPEED);
 	if (game->key_right)

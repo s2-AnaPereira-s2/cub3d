@@ -29,7 +29,7 @@ int	ft_hex_convert_upper(unsigned int number)
 		i = number % 16;
 		temp[index] = hex[i];
 		number /= 16;
-		index++; 
+		index++;
 	}
 	temp[index] = hex[number];
 	i = 0;

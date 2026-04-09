@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 void	get_pn_pos(t_game *game, t_player *player)
@@ -12,7 +11,8 @@ void	get_pn_pos(t_game *game, t_player *player)
 		x = 0;
 		while (game->map[y][x] != '\n' && game->map[y][x] != '\0')
 		{
-			if (game->map[y][x] == 'N' || game->map[y][x] == 'S' || game->map[y][x] == 'E' || game->map[y][x] == 'W')
+			if (game->map[y][x] == 'N' || game->map[y][x] == 'S'
+				|| game->map[y][x] == 'E' || game->map[y][x] == 'W')
 			{
 				player->dir = game->map[y][x];
 				game->p += 1;
@@ -26,39 +26,39 @@ void	get_pn_pos(t_game *game, t_player *player)
 	}
 }
 
-void	get_direction_NS(t_player *player)
+static void	get_direction_ns(t_player *player)
 {
 	if (player->dir == 'N')
 	{
-    	player->dirX = 0;
-    	player->dirY = -1;
-		player->planeX = 0.66;
-    	player->planeY = 0;
+		player->dir_x = 0;
+		player->dir_y = -1;
+		player->plane_x = 0.66;
+		player->plane_y = 0;
 	}
 	else if (player->dir == 'S')
 	{
-    	player->dirX = 0;
-    	player->dirY = 1;
-		player->planeX = -0.66;
-    	player->planeY = 0;
+		player->dir_x = 0;
+		player->dir_y = 1;
+		player->plane_x = -0.66;
+		player->plane_y = 0;
 	}
 }
 
-void	get_direction_WE(t_player *player)
+static void	get_direction_we(t_player *player)
 {
 	if (player->dir == 'E')
 	{
-    	player->dirX = 1;
-    	player->dirY = 0;
-		player->planeX = 0;
-    	player->planeY = 0.66;
+		player->dir_x = 1;
+		player->dir_y = 0;
+		player->plane_x = 0;
+		player->plane_y = 0.66;
 	}
 	else if (player->dir == 'W')
 	{
-    	player->dirX = -1;
-    	player->dirY = 0;
-		player->planeX = 0;
-    	player->planeY = -0.66;
+		player->dir_x = -1;
+		player->dir_y = 0;
+		player->plane_x = 0;
+		player->plane_y = -0.66;
 	}
 }
 
@@ -70,8 +70,8 @@ int	get_helpers(t_game *game, t_player *player)
 	get_colors(game);
 	if (map_check(game))
 		return (close_window(game), 1);
-	get_direction_NS(player);
-	get_direction_WE(player);
+	get_direction_ns(player);
+	get_direction_we(player);
 	get_dir_textures(game);
 	return (0);
 }

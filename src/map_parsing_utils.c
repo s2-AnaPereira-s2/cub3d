@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 int	line_len_no_nl(char *line)
@@ -32,16 +31,16 @@ int	bad_extension(t_game *game)
 	size = ft_strlen(game->file_name);
 	if (size < 11)
 		return (perror("Bad file extension"), close_window(game), 1);
-	else if (game->file_name[size - 4] != '.' 
-		|| game->file_name[size - 3] != 'c' 
-		|| game->file_name[size - 2] != 'u' 
+	else if (game->file_name[size - 4] != '.'
+		|| game->file_name[size - 3] != 'c'
+		|| game->file_name[size - 2] != 'u'
 		|| game->file_name[size - 1] != 'b')
 		return (perror("Bad file extension"), close_window(game), 1);
 	i = 5;
 	while (i < (size - 4))
 	{
 		check = ft_isalnum(game->file_name[i]);
-		if (check == 1 && game->file_name[i] != '_' 
+		if (check == 1 && game->file_name[i] != '_'
 			&& game->file_name[i] != '-')
 			return (perror("Bad file extension"), close_window(game), 1);
 		i++;
@@ -49,10 +48,10 @@ int	bad_extension(t_game *game)
 	return (0);
 }
 
-void get_map_width(t_game *game)
+void	get_map_width(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (game->map[i])
@@ -65,6 +64,3 @@ void get_map_width(t_game *game)
 		i++;
 	}
 }
-
-
-

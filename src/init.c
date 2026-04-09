@@ -1,24 +1,23 @@
-
 #include "cub3d.h"
 
-void init_textures(t_game *game)
+void	init_textures(t_game *game)
 {
-	int i;
+	int	i;
 
-	game->N_path = NULL;
-	game->S_path = NULL;
-	game->E_path = NULL;
-	game->W_path = NULL;
+	game->n_path = NULL;
+	game->s_path = NULL;
+	game->e_path = NULL;
+	game->w_path = NULL;
 	game->f_rgb = NULL;
 	game->c_rgb = NULL;
-	game->NO_index = 0;
-	game->SO_index = 0;
-	game->WE_index = 0;
-	game->EA_index = 0;
-	game->NO_num = 0;
-	game->SO_num = 0;
-	game->WE_num = 0;
-	game->EA_num = 0;
+	game->no_index = 0;
+	game->so_index = 0;
+	game->we_index = 0;
+	game->ea_index = 0;
+	game->no_num = 0;
+	game->so_num = 0;
+	game->we_num = 0;
+	game->ea_num = 0;
 	game->tex_index = 0;
 	game->step = 0.0;
 	i = 0;
@@ -32,92 +31,64 @@ void init_textures(t_game *game)
 
 void	init_game(t_game *game, t_player *player)
 {
-	game->mlx = NULL;
-	game->win = NULL;
-	game->map_height = 0;
-	game->map_width = 0;
-	game->info_size = 0;
+	ft_bzero(game, sizeof(t_game));
 	game->fd = -1;
-	game->map = NULL;
-	game->info = NULL;
-	game->p = 0;
-	game->px = 0.00;
-	game->py = 0.00;
-	game->key_w = 0;
-	game->key_a = 0;
-	game->key_s = 0;
-	game->key_d = 0;
-	game->key_left = 0;
-	game->key_right = 0;
 	player->dir = ' ';
-	player->dirX = 0;
-	player->dirY = 0;
-	player->planeX = 0.0;
-	player->planeY = 0.0;
-	game->f_color = 0;
-	game->c_color = 0;
-	game->f_rgb_len = 0;
-	game->c_rgb_len = 0;
-	game->f_num = 0;
-	game->c_num = 0;
-	game->screen.img = NULL;
-	game->screen.addr = NULL;
+	player->dir_x = 0;
+	player->dir_y = 0;
+	player->plane_x = 0.0;
+	player->plane_y = 0.0;
 	init_textures(game);
 }
 
-void init_ray1(t_game *game, t_player *player, t_ray *ray, int x)
+void	init_ray1(t_game *game, t_player *player, t_ray *ray, int x)
 {
-    double cameraX;
+	double	camera_x;
 
-    cameraX = 2 * x / (double)game->win_width - 1;
-
-    ray->rayDirX = player->dirX + player->planeX * cameraX;
-    ray->rayDirY = player->dirY + player->planeY * cameraX;
-
-    ray->mapX = (int)game->px;
-    ray->mapY = (int)game->py;
-
-    if (ray->rayDirX == 0)
-        ray->deltaDistX = 1e30;
-    else
-        ray->deltaDistX = fabs(1 / ray->rayDirX);
-    if (ray->rayDirY == 0)
-        ray->deltaDistY = 1e30;
-    else
-        ray->deltaDistY = fabs(1 / ray->rayDirY);
+	camera_x = 2 * x / (double)game->win_width - 1;
+	ray->ray_dir_x = player->dir_x + player->plane_x * camera_x;
+	ray->ray_dir_y = player->dir_y + player->plane_y * camera_x;
+	ray->map_x = (int)game->px;
+	ray->map_y = (int)game->py;
+	if (ray->ray_dir_x == 0)
+		ray->delta_dist_x = 1e30;
+	else
+		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+	if (ray->ray_dir_y == 0)
+		ray->delta_dist_y = 1e30;
+	else
+		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 }
 
-void init_ray2(t_game *game, t_ray *ray)
+void	init_ray2(t_game *game, t_ray *ray)
 {
-    ray->hit = 0;
-
-    if (ray->rayDirX < 0)
-    {
-        ray->stepX = -1;
-        ray->sideDistX = (game->px - ray->mapX) * ray->deltaDistX;
-    }
-    else
-    {
-        ray->stepX = 1;
-        ray->sideDistX = (ray->mapX + 1.0 - game->px) * ray->deltaDistX;
-    }
-
-    if (ray->rayDirY < 0)
-    {
-        ray->stepY = -1;
-        ray->sideDistY = (game->py - ray->mapY) * ray->deltaDistY;
-    }
-    else
-    {
-        ray->stepY = 1;
-        ray->sideDistY = (ray->mapY + 1.0 - game->py) * ray->deltaDistY;
-    }
+	ray->hit = 0;
+	if (ray->ray_dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_dist_x = (game->px - ray->map_x) * ray->delta_dist_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - game->px) * ray->delta_dist_x;
+	}
+	if (ray->ray_dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_dist_y = (game->py - ray->map_y) * ray->delta_dist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - game->py) * ray->delta_dist_y;
+	}
 }
 
-void init_win_wh(t_game *game)
+void	init_win_wh(t_game *game)
 {
-	int screen_w;
-	int screen_h;
+	int	screen_w;
+	int	screen_h;
 
 	mlx_get_screen_size(game->mlx, &screen_w, &screen_h);
 	game->win_width = screen_w;

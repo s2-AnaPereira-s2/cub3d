@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 static int	is_valid_map_char(char c)
@@ -67,7 +66,8 @@ int	map_check(t_game *game)
 	while (game->map[y])
 	{
 		if (row_is_open(game, y))
-			return (perror("Map is not surrounded by walls"), close_window(game), 1);
+			return (perror("Map is not surrounded by walls"),
+				close_window(game), 1);
 		y++;
 	}
 	return (0);

@@ -4,14 +4,14 @@ void	put_pixel(t_img *img, int x, int y, int color)
 {
 	int	pixel_index;
 
-    if (x < 0 || x >= img->width || y < 0 || y >= img->height)
-        return ;
-    pixel_index = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
-    img->addr[pixel_index] = color & 0xFF;
-    img->addr[pixel_index + 1] = (color >> 8) & 0xFF;
-    img->addr[pixel_index + 2] = (color >> 16) & 0xFF;
-    if (img->bits_per_pixel == 32)
-        img->addr[pixel_index + 3] = 0;
+	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
+		return ;
+	pixel_index = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
+	img->addr[pixel_index] = color & 0xFF;
+	img->addr[pixel_index + 1] = (color >> 8) & 0xFF;
+	img->addr[pixel_index + 2] = (color >> 16) & 0xFF;
+	if (img->bits_per_pixel == 32)
+		img->addr[pixel_index + 3] = 0;
 }
 
 void	draw_background(t_game *game)
