@@ -15,12 +15,21 @@
 static int	find_map_start(t_game *game)
 {
 	int	i;
+	int j;
 
 	i = 0;
-	while (game->info[i] && game->info[i][0] != '1'
-		&& game->info[i][0] != '0' && game->info[i][0] != ' ')
+	while (game->info[i])
+	{
+		j = 0;
+		while (game->info[i][j] == ' ' || game->info[i][j] == '\t')
+			j++;
+		if (game->info[i][j] == '1' || game->info[i][j] == '0'
+            || game->info[i][j] == 'N' || game->info[i][j] == 'S'
+            || game->info[i][j] == 'E' || game->info[i][j] == 'W')
+			return (i);
 		i++;
-	return (i);
+	}
+	return (-1);
 }
 
 static void	copy_map(t_game *game, int map_start)
@@ -72,6 +81,8 @@ int	get_map(t_game *game)
 
 	map_start = find_map_start(game);
 	i = map_start;
+	if (i < 0)
+		return (perror("No map"), 1);
 	while (game->info[i])
 	{
 		game->map_height++;

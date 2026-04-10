@@ -94,7 +94,7 @@ void	get_colors(t_game *game)
 	char	*temp;
 
 	i = 0;
-	while (game->info[i])
+	while (i < (game->info_size - game->map_height))
 	{
 		if (game->info[i][0] == 'F')
 		{

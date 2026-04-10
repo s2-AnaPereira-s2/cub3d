@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	colors_format(t_game *game)
+static int	colors_format(t_game *game)
 {
 	if ((ft_atoi(game->f_rgb[0]) < 0 || ft_atoi(game->f_rgb[0]) > 255)
 		|| (ft_atoi(game->f_rgb[1]) < 0 || ft_atoi(game->f_rgb[1]) > 255)
@@ -25,8 +25,32 @@ int	colors_format(t_game *game)
 	return (0);
 }
 
+static int file_start_check(t_game *game)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < (game->info_size - game->map_height))
+	{
+		if (game->info[i][0] != 'N' && game->info[i][0] != 'S' && game->info[i][0] != 'W' && game->info[i][0] != 'E' 
+			&& game->info[i][0] != 'F' && game->info[i][0] != 'C' && game->info[i][0] != '\n' && game->info[i][0] != ' ' && game->info[i][0] != '\t')
+			return 1;
+		j = 0;
+		while (game->info[i][j] == ' ' && game->info[i][j] == '\t')
+			j++;
+		if (game->info[i][j] != 'N' && game->info[i][j] != 'S' && game->info[i][j] != 'W' && game->info[i][j] != 'E' 
+			&& game->info[i][j] != 'F' && game->info[i][0] != 'C' && game->info[i][j] != '\n')
+			return 1;
+		i++;
+	}
+	return 0;
+}
+
 int	p_c_d_check(t_game *game)
 {
+	if (file_start_check(game))
+		return (perror("Invalid file order"), close_window(game), 1);
 	if (colors_format(game))
 		return (perror("Invalid rgb colors numbers"), close_window(game), 1);
 	if (game->f_num != 1 || game->c_num != 1 || game->no_num != 1
@@ -62,13 +86,3 @@ int	bad_extension(t_game *game)
 	return (0);
 }
 
-static int file_order_check(t_game *game)
-{
-	int i;
-
-	i = 0;
-	while (i < game->info_size)
-	{
-		if(game->info[i][0] != 'N' )
-	}
-}
