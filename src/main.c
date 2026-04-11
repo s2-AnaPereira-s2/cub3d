@@ -16,16 +16,16 @@ static int	init_window_and_image(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		return (perror("mlx_init failed"), close_window(game), 1);
+		return (ft_putstr_fd("Error\nmlx_init failed\n", 2), close_window(game), 1);
 	init_win_wh(game);
 	game->win = mlx_new_window(game->mlx,
 			game->win_width, game->win_height, "Cub3d");
 	if (!game->win)
-		return (perror("mlx_new_window failed"), close_window(game), 1);
+		return (ft_putstr_fd("Error\nmlx_new_window failed\n", 2), close_window(game), 1);
 	game->screen.img = mlx_new_image(game->mlx,
 			game->win_width, game->win_height);
 	if (!game->screen.img)
-		return (perror("mlx_new_image failed"), close_window(game), 1);
+		return (ft_putstr_fd("Error\nmlx_new_image failed\n", 2), close_window(game), 1);
 	game->screen.addr = mlx_get_data_addr(game->screen.img,
 			&game->screen.bits_per_pixel,
 			&game->screen.line_length, &game->screen.endian);
@@ -39,10 +39,12 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		return (0);
 	init_game(&game, &game.player);
+	game.file_name = argv[1];
+	if (startup_1(&game))
+		return (close_window(&game), 1);
 	if (init_window_and_image(&game))
 		return (close_window(&game), 1);
-	game.file_name = argv[1];
-	if (get_helpers(&game, &game.player))
+	if (startup_2(&game))
 		return (close_window(&game), 1);
 	mlx_loop_hook(game.mlx, render_frame, &game);
 	mlx_hook(game.win, 2, 1L << 0, keypress, &game);

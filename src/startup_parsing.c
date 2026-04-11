@@ -74,17 +74,24 @@ static void	get_direction_we(t_player *player)
 	}
 }
 
-int	get_helpers(t_game *game, t_player *player)
+int	startup_1(t_game *game)
 {
-	if (bad_extension(game) || get_info(game) || get_map(game))
+	if (bad_extension(game) || get_info(game))
 		return (close_window(game), 1);
-	get_pn_pos(game, player);
 	get_colors(game);
-	if (map_check(game))
-		return (close_window(game), 1);
-	get_direction_ns(player);
-	get_direction_we(player);
 	get_dir_textures(game);
+	return (0);
+}
+
+int	startup_2(t_game *game)
+{
+	if (get_map(game))
+		return (close_window(game), 1);
+	get_pn_pos(game, &game->player);
+	if (map_check(game) || load_text_img(game))
+		return (close_window(game), 1);
+	get_direction_ns(&game->player);
+	get_direction_we(&game->player);
 	return (0);
 }
 
@@ -95,7 +102,7 @@ int	get_length(t_game *game)
 
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
-		return (perror("Wrong file"), close(game->fd), close_window(game), 1);
+		return (perror("Wrong file"), close_window(game), 1);
 	size = 0;
 	line = get_next_line(game->fd);
 	while (line)

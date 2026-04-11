@@ -12,30 +12,6 @@
 
 #include "cub3d.h"
 
-int	load_text_img(t_game *game)
-{
-	char	*paths[4];
-	int		i;
-	int		text_w;
-	int		text_h;
-
-	paths[0] = game->n_path;
-	paths[1] = game->s_path;
-	paths[2] = game->w_path;
-	paths[3] = game->e_path;
-	i = 0;
-	while (i < 4)
-	{
-		game->textures[i].img = mlx_xpm_file_to_image(game->mlx,
-				paths[i], &text_w, &text_h);
-		if (!game->textures[i].img)
-			return (perror("Failed to load texture"), close_window(game), 1);
-		game->textures[i].width = text_w;
-		game->textures[i].height = text_h;
-		i++;
-	}
-	return (0);
-}
 
 void	pass_text_imgstruct(t_game *game)
 {
@@ -53,23 +29,56 @@ void	pass_text_imgstruct(t_game *game)
 			&game->textures[3].line_length, &game->textures[3].endian);
 }
 
+int	load_text_img(t_game *game)
+{
+	char	*paths[4];
+	int		i;
+	int		text_w;
+	int		text_h;
+
+	paths[0] = game->n_path;
+	paths[1] = game->s_path;
+	paths[2] = game->w_path;
+	paths[3] = game->e_path;
+	i = 0;
+	while (i < 4)
+	{
+		game->textures[i].img = mlx_xpm_file_to_image(game->mlx,
+				paths[i], &text_w, &text_h);
+		if (!game->textures[i].img)
+			return (ft_putstr_fd("Error\nFailed to load texture\n", 2), close_window(game), 1);
+		game->textures[i].width = text_w;
+		game->textures[i].height = text_h;
+		i++;
+	}
+	pass_text_imgstruct(game);
+	return (0);
+}
+
 void	get_dir_textures(t_game *game)
 {
 	int	n_len;
 	int	s_len;
 	int	w_len;
 	int	e_len;
+	char *trim;
 
-	n_len = ft_strlen(trim_path(game->info[game->no_index]));
-	s_len = ft_strlen(trim_path(game->info[game->so_index]));
-	w_len = ft_strlen(trim_path(game->info[game->we_index]));
-	e_len = ft_strlen(trim_path(game->info[game->ea_index]));
-	game->n_path = ft_substr(trim_path(game->info[game->no_index]), 4, n_len - 4);
-	game->s_path = ft_substr(trim_path(game->info[game->so_index]), 4, s_len - 4);
-	game->w_path = ft_substr(trim_path(game->info[game->we_index]), 4, w_len - 4);
-	game->e_path = ft_substr(trim_path(game->info[game->ea_index]), 4, e_len - 4);
-	load_text_img(game);
-	pass_text_imgstruct(game);
+	trim = trim_path(game->info[game->no_index]);
+	n_len = ft_strlen(trim);
+	game->n_path = ft_substr(trim, 4, n_len - 4);
+	free(trim);
+	trim = trim_path(game->info[game->so_index]);
+	s_len = ft_strlen(trim);
+	game->s_path = ft_substr(trim, 4, s_len - 4);
+	free(trim);
+	trim = trim_path(game->info[game->we_index]);
+	w_len = ft_strlen(trim);
+	game->w_path = ft_substr(trim, 4, w_len - 4);
+	free(trim);
+	trim = trim_path(game->info[game->ea_index]);
+	e_len = ft_strlen(trim);
+	game->e_path = ft_substr(trim, 4, e_len - 4);
+	free(trim);
 }
 
 void	pass_colors(t_game *game)

@@ -30,7 +30,7 @@ int	char_check(t_game *game)
 		while (game->map[i][j] != '\0' && game->map[i][j] != '\n')
 		{
 			if (!is_valid_map_char(game->map[i][j]))
-				return (perror("Wrong char in map"), 1);
+				return (ft_putstr_fd("Error\nWrong char in map\n", 2), 1);
 			j++;
 		}
 		i++;
@@ -71,14 +71,14 @@ int	map_check(t_game *game)
 	if (char_check(game))
 		return (close_window(game), 1);
 	if (game->p != 1)
-		return (perror("Invalid number of players"), close_window(game), 1);
+		return (ft_putstr_fd("Error\nInvalid number of players\n", 2), close_window(game), 1);
 	if (p_c_d_check(game))
 		return (1);
 	y = 0;
 	while (game->map[y])
 	{
 		if (row_is_open(game, y))
-			return (perror("Map is not surrounded by walls"),
+			return (ft_putstr_fd("Error\nMap is not surrounded by walls\n", 2),
 				close_window(game), 1);
 		y++;
 	}

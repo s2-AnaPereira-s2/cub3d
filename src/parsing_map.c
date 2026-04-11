@@ -55,13 +55,13 @@ int	get_info(t_game *game)
 
 	game->info_size = get_length(game);
 	if (game->info_size == 0)
-		return (perror("empty map"), 1);
+		return (ft_putstr_fd("Error\nempty map\n", 2), close_window(game), 1);
 	game->info = ft_calloc(sizeof(char *), game->info_size + 1);
 	if (!game->info)
 		return (1);
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
-		return (close(game->fd), perror("error to open file"), 1);
+		return (perror("Error to open file"), close_window(game), 1);
 	game->info_size = 0;
 	line = get_next_line(game->fd);
 	while (line)
@@ -98,7 +98,7 @@ int	get_map(t_game *game)
 	game->map_start = find_map_start(game);
 	i = game->map_start;
 	if (i < 0)
-		return (perror("No map"), 1);
+		return (ft_putstr_fd("Error\nNo map\n", 2), close_window(game), 1);
 	while (game->info[i] && !is_text_color(game->info[i]))
 	{
 		game->map_height++;
@@ -106,7 +106,7 @@ int	get_map(t_game *game)
 	}
 	game->map = ft_calloc(sizeof(char *), game->map_height + 1);
 	if (!game->map || game->map_height == 0)
-		return (perror("No map"), 1);
+		return (ft_putstr_fd("Error\nNo map\n", 2), close_window(game), 1);
 	copy_map(game, game->map_start);
 	get_map_width(game);
 	return (0);
