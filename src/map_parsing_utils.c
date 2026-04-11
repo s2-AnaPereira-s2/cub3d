@@ -51,63 +51,29 @@ void	get_map_width(t_game *game)
 	}
 }
 
-char *trim_color (char *color)
+char	*trim_core(char *str, int skip_fc)
 {
-	int i;
-	int j;
-	int len;
-	char	*ns;
+	int		i;
+	int		j;
+	char	*out;
 
-	len = line_len_no_nl(color);
-    ns = malloc(len + 1);
-    if (!ns)
-    {
+	out = malloc(line_len_no_nl(str) + 1);
+	if (!out)
 		return (NULL);
-	}
 	i = 0;
 	j = 0;
-	while (color[i] && color[i] != '\n')
+	while (str[i] && str[i] != '\n')
 	{
-		if (color[i] == 'F' || color[i] == 'C'
-			|| color[i] == ' ' || color[i] == '\t')
+		if (str[i] == ' ' || str[i] == '\t'
+			|| (skip_fc && (str[i] == 'F' || str[i] == 'C')))
 			i++;
 		else
 		{
-			ns[j] = color[i];
+			out[j] = str[i];
 			j++;
 			i++;
 		}
 	}
-	ns[j] = '\0';
-	return (ns);
-}
-
-char *trim_path (char *path)
-{
-	int i;
-	int j;
-	int len;
-	char *np;
-
-	len = line_len_no_nl(path);
-    np = malloc(len + 1);
-    if (!np)
-	{
-		return (NULL);
-	}
-	i = 0;
-	j = 0;
-	while (path[i] && path[i] != '\n')
-	{
-		if (path[i] == ' ' || path[i] == '\t')
-			i++;
-		else
-		{
-			np[j] = path[i];
-			j++;
-			i++;
-		}
-	}
-	np[j] = '\0';
-	return (np);
+	out[j] = '\0';
+	return (out);
 }

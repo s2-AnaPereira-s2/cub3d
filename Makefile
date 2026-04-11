@@ -15,6 +15,7 @@ OBJ_DIR = obj
 SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/startup_parsing.c \
 	$(SRC_DIR)/map_parsing_utils.c \
+	$(SRC_DIR)/map_parsing_utils2.c \
 	$(SRC_DIR)/texture_parsing.c \
 	$(SRC_DIR)/start_map.c \
 	$(SRC_DIR)/parsing_map.c \

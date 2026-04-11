@@ -94,23 +94,3 @@ int	startup_2(t_game *game)
 	get_direction_we(&game->player);
 	return (0);
 }
-
-int	get_length(t_game *game)
-{
-	char	*line;
-	int		size;
-
-	game->fd = open(game->file_name, O_RDONLY);
-	if (game->fd < 0)
-		return (perror("Wrong file"), close_window(game), 1);
-	size = 0;
-	line = get_next_line(game->fd);
-	while (line)
-	{
-		size++;
-		free(line);
-		line = get_next_line(game->fd);
-	}
-	close(game->fd);
-	return (size);
-}

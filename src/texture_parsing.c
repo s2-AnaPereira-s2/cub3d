@@ -14,7 +14,7 @@
 
 int	get_text_index(t_game *game, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (game->info[i][j] == ' ' || game->info[i][j] == '\t')

@@ -71,7 +71,8 @@ int	map_check(t_game *game)
 	if (char_check(game))
 		return (close_window(game), 1);
 	if (game->p != 1)
-		return (ft_putstr_fd("Error\nInvalid number of players\n", 2), close_window(game), 1);
+		return (ft_putstr_fd("Error\nInvalid number of players\n", 2),
+			close_window(game), 1);
 	if (p_c_d_check(game))
 		return (1);
 	y = 0;

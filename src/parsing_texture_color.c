@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 void	pass_text_imgstruct(t_game *game)
 {
 	game->textures[0].addr = mlx_get_data_addr(game->textures[0].img,
@@ -46,7 +45,8 @@ int	load_text_img(t_game *game)
 		game->textures[i].img = mlx_xpm_file_to_image(game->mlx,
 				paths[i], &text_w, &text_h);
 		if (!game->textures[i].img)
-			return (ft_putstr_fd("Error\nFailed to load texture\n", 2), close_window(game), 1);
+			return (ft_putstr_fd("Error\nFailed to load texture\n", 2),
+				close_window(game), 1);
 		game->textures[i].width = text_w;
 		game->textures[i].height = text_h;
 		i++;
@@ -57,50 +57,26 @@ int	load_text_img(t_game *game)
 
 void	get_dir_textures(t_game *game)
 {
-	int	n_len;
-	int	s_len;
-	int	w_len;
-	int	e_len;
-	char *trim;
+	char	*trim;
 
 	trim = trim_path(game->info[game->no_index]);
-	n_len = ft_strlen(trim);
-	game->n_path = ft_substr(trim, 4, n_len - 4);
+	game->n_path = ft_substr(trim, 4, ft_strlen(trim) - 4);
 	free(trim);
 	trim = trim_path(game->info[game->so_index]);
-	s_len = ft_strlen(trim);
-	game->s_path = ft_substr(trim, 4, s_len - 4);
+	game->s_path = ft_substr(trim, 4, ft_strlen(trim) - 4);
 	free(trim);
 	trim = trim_path(game->info[game->we_index]);
-	w_len = ft_strlen(trim);
-	game->w_path = ft_substr(trim, 4, w_len - 4);
+	game->w_path = ft_substr(trim, 4, ft_strlen(trim) - 4);
 	free(trim);
 	trim = trim_path(game->info[game->ea_index]);
-	e_len = ft_strlen(trim);
-	game->e_path = ft_substr(trim, 4, e_len - 4);
+	game->e_path = ft_substr(trim, 4, ft_strlen(trim) - 4);
 	free(trim);
 }
 
-void	pass_colors(t_game *game)
+void	get_colors_index(t_game *game)
 {
-	int	r;
-	int	g;
-	int	b;
-
-	r = ft_atoi(game->f_rgb[0]) << 16;
-	g = ft_atoi(game->f_rgb[1]) << 8;
-	b = ft_atoi(game->f_rgb[2]);
-	game->f_color = r | g | b;
-	r = ft_atoi(game->c_rgb[0]) << 16;
-	g = ft_atoi(game->c_rgb[1]) << 8;
-	b = ft_atoi(game->c_rgb[2]);
-	game->c_color = r | g | b;
-}
-
-void get_colors_index(t_game *game)
-{
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (game->info[i])
@@ -125,17 +101,16 @@ void get_colors_index(t_game *game)
 void	get_colors(t_game *game)
 {
 	char	*color;
-	int	f;
-	int c;
 
 	get_colors_index(game);
-	f = game->f_index;
-	c = game->c_index;
-	color = trim_color(game->info[f]);
+	color = trim_color(game->info[game->f_index]);
 	game->f_rgb = ft_split(color, ',');
 	free(color);
-	color = trim_color(game->info[c]);
+	color = trim_color(game->info[game->c_index]);
 	game->c_rgb = ft_split(color, ',');
 	free(color);
-	pass_colors(game);
+	game->f_color = (ft_atoi(game->f_rgb[0]) << 16)
+		| (ft_atoi(game->f_rgb[1]) << 8) | ft_atoi(game->f_rgb[2]);
+	game->c_color = (ft_atoi(game->c_rgb[0]) << 16)
+		| (ft_atoi(game->c_rgb[1]) << 8) | ft_atoi(game->c_rgb[2]);
 }

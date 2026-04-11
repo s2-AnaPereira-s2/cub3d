@@ -15,7 +15,7 @@
 static int	find_map_start(t_game *game)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	while (game->info[i])
@@ -24,8 +24,10 @@ static int	find_map_start(t_game *game)
 		while (game->info[i][j] == ' ' || game->info[i][j] == '\t')
 			j++;
 		if (game->info[i][j] == '1' || game->info[i][j] == '0'
-            || (game->info[i][j] == 'N' && game->info[i][j + 1] != 'O') || (game->info[i][j] == 'S' && game->info[i][j + 1] != 'O')
-            || (game->info[i][j] == 'E' && game->info[i][j + 1] != 'A') || (game->info[i][j] == 'W' && game->info[i][j + 1] != 'E'))
+			|| (game->info[i][j] == 'N' && game->info[i][j + 1] != 'O')
+			|| (game->info[i][j] == 'S' && game->info[i][j + 1] != 'O')
+			|| (game->info[i][j] == 'E' && game->info[i][j + 1] != 'A')
+			|| (game->info[i][j] == 'W' && game->info[i][j + 1] != 'E'))
 			return (i);
 		i++;
 	}
@@ -35,8 +37,7 @@ static int	find_map_start(t_game *game)
 static void	copy_map(t_game *game, int map_start)
 {
 	int	i;
-	int j;
-
+	int	j;
 
 	i = map_start;
 	j = 0;
@@ -79,16 +80,18 @@ int	get_info(t_game *game)
 
 static int	is_text_color(char *s)
 {
-    int	j = 0;
-    while (s[j] == ' ' || s[j] == '\t')
-        j++;
-    if ((s[j] == 'N' && s[j + 1] == 'O')
-        || (s[j] == 'S' && s[j + 1] == 'O')
-        || (s[j] == 'W' && s[j + 1] == 'E')
-        || (s[j] == 'E' && s[j + 1] == 'A')
-        || s[j] == 'F' || s[j] == 'C')
-        return (1);
-    return (0);
+	int	j;
+
+	j = 0;
+	while (s[j] == ' ' || s[j] == '\t')
+		j++;
+	if ((s[j] == 'N' && s[j + 1] == 'O')
+		|| (s[j] == 'S' && s[j + 1] == 'O')
+		|| (s[j] == 'W' && s[j + 1] == 'E')
+		|| (s[j] == 'E' && s[j + 1] == 'A')
+		|| s[j] == 'F' || s[j] == 'C')
+		return (1);
+	return (0);
 }
 
 int	get_map(t_game *game)
