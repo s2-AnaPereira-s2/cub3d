@@ -77,6 +77,7 @@ typedef struct s_game
 	int			win_height;
 	int			map_height;
 	int			map_width;
+	int			map_start;
 	int			info_size;
 	int			fd;
 	int			np_x;
@@ -110,6 +111,8 @@ typedef struct s_game
 	int			ea_num;
 	int			f_color;
 	int			c_color;
+	int			f_index;
+	int			c_index;
 	int			f_rgb_len;
 	int			c_rgb_len;
 	int			f_num;

@@ -26,24 +26,11 @@ static int	colors_format(t_game *game)
 }
 
 static int file_start_check(t_game *game)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < (game->info_size - game->map_height))
-	{
-		if (game->info[i][0] != 'N' && game->info[i][0] != 'S' && game->info[i][0] != 'W' && game->info[i][0] != 'E' 
-			&& game->info[i][0] != 'F' && game->info[i][0] != 'C' && game->info[i][0] != '\n' && game->info[i][0] != ' ' && game->info[i][0] != '\t')
+{ 
+	if ((game->map_start < game->c_index) || (game->map_start < game->f_index) || 
+		(game->map_start < game->no_index) || (game->map_start < game->so_index) ||
+			(game->map_start < game->we_index) || (game->map_start < game->ea_index))
 			return 1;
-		j = 0;
-		while (game->info[i][j] == ' ' && game->info[i][j] == '\t')
-			j++;
-		if (game->info[i][j] != 'N' && game->info[i][j] != 'S' && game->info[i][j] != 'W' && game->info[i][j] != 'E' 
-			&& game->info[i][j] != 'F' && game->info[i][0] != 'C' && game->info[i][j] != '\n')
-			return 1;
-		i++;
-	}
 	return 0;
 }
 

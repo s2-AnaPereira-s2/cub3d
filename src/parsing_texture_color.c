@@ -88,31 +88,44 @@ void	pass_colors(t_game *game)
 	game->c_color = r | g | b;
 }
 
+void get_colors_index(t_game *game)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (game->info[i])
+	{
+		j = 0;
+		while (game->info[i][j] == ' ' || game->info[i][j] == '\t')
+			j++;
+		if (game->info[i][j] == 'F')
+		{
+			game->f_index = i;
+			game->f_num++;
+		}
+		else if (game->info[i][j] == 'C')
+		{
+			game->c_index = i;
+			game->c_num++;
+		}
+		i++;
+	}
+}
+
 void	get_colors(t_game *game)
 {
 	int		i;
 	char	*temp;
 
-	i = 0;
-	while (i < (game->info_size - game->map_height))
-	{
-		if (game->info[i][0] == 'F')
-		{
-			game->f_rgb_len = ft_strlen(game->info[i]);
-			temp = ft_substr(game->info[i], 2, game->f_rgb_len - 3);
-			game->f_rgb = ft_split(temp, ',');
-			free(temp);
-			game->f_num++;
-		}
-		else if (game->info[i][0] == 'C')
-		{
-			game->c_rgb_len = ft_strlen(game->info[i]);
-			temp = ft_substr(game->info[i], 2, game->c_rgb_len - 3);
-			game->c_rgb = ft_split(temp, ',');
-			free(temp);
-			game->c_num++;
-		}
-		i++;
-	}
+	get_colors_index(game);
+	game->f_rgb_len = ft_strlen(game->info[i]);
+	temp = ft_substr(game->info[i], 2, game->f_rgb_len - 3);
+	game->f_rgb = ft_split(temp, ',');
+	free(temp);
+	game->c_rgb_len = ft_strlen(game->info[i]);
+	temp = ft_substr(game->info[i], 2, game->c_rgb_len - 3);
+	game->c_rgb = ft_split(temp, ',');
+	free(temp);
 	pass_colors(game);
 }

@@ -15,7 +15,7 @@
 static int	is_valid_map_char(char c)
 {
 	return (c == '1' || c == '0' || c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W' || c == ' ');
+		|| c == 'E' || c == 'W' || c == ' ' || c == '\t');
 }
 
 int	char_check(t_game *game)

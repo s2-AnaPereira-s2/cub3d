@@ -24,8 +24,8 @@ static int	find_map_start(t_game *game)
 		while (game->info[i][j] == ' ' || game->info[i][j] == '\t')
 			j++;
 		if (game->info[i][j] == '1' || game->info[i][j] == '0'
-            || game->info[i][j] == 'N' || game->info[i][j] == 'S'
-            || game->info[i][j] == 'E' || game->info[i][j] == 'W')
+            || (game->info[i][j] == 'N' && game->info[i][j + 1] != 'O') || (game->info[i][j] == 'S' && game->info[i][j + 1] != 'O')
+            || (game->info[i][j] == 'E' && game->info[i][j + 1] != 'A') || (game->info[i][j] == 'W' && game->info[i][j + 1] != 'E'))
 			return (i);
 		i++;
 	}
@@ -35,15 +35,18 @@ static int	find_map_start(t_game *game)
 static void	copy_map(t_game *game, int map_start)
 {
 	int	i;
+	int j;
 
-	i = 0;
-	while (game->info[map_start])
+
+	i = map_start;
+	j = 0;
+	while (j < game->map_height)
 	{
-		game->map[i] = game->info[map_start];
-		map_start++;
+		game->map[j] = game->info[i];
 		i++;
+		j++;
 	}
-	game->map[i] = NULL;
+	game->map[j] = NULL;
 }
 
 int	get_info(t_game *game)
@@ -74,16 +77,29 @@ int	get_info(t_game *game)
 	return (0);
 }
 
+static int	is_text_color(char *s)
+{
+    int	j = 0;
+    while (s[j] == ' ' || s[j] == '\t')
+        j++;
+    if ((s[j] == 'N' && s[j + 1] == 'O')
+        || (s[j] == 'S' && s[j + 1] == 'O')
+        || (s[j] == 'W' && s[j + 1] == 'E')
+        || (s[j] == 'E' && s[j + 1] == 'A')
+        || s[j] == 'F' || s[j] == 'C')
+        return (1);
+    return (0);
+}
+
 int	get_map(t_game *game)
 {
 	int	i;
-	int	map_start;
 
-	map_start = find_map_start(game);
-	i = map_start;
+	game->map_start = find_map_start(game);
+	i = game->map_start;
 	if (i < 0)
 		return (perror("No map"), 1);
-	while (game->info[i])
+	while (game->info[i] && !is_text_color(game->info[i]))
 	{
 		game->map_height++;
 		i++;
@@ -91,7 +107,7 @@ int	get_map(t_game *game)
 	game->map = ft_calloc(sizeof(char *), game->map_height + 1);
 	if (!game->map || game->map_height == 0)
 		return (perror("No map"), 1);
-	copy_map(game, map_start);
+	copy_map(game, game->map_start);
 	get_map_width(game);
 	return (0);
 }
