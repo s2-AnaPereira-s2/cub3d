@@ -174,5 +174,8 @@ void		get_map_width(t_game *game);
 void		pass_text_index(t_game *game);
 int			p_c_d_check(t_game *game);
 void		draw_minimap(t_game *game);
+char *trim_color (char *color);
+char *trim_path (char *path);
+
 
 #endif

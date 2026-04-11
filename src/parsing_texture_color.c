@@ -60,14 +60,14 @@ void	get_dir_textures(t_game *game)
 	int	w_len;
 	int	e_len;
 
-	n_len = ft_strlen(game->info[game->no_index]);
-	s_len = ft_strlen(game->info[game->so_index]);
-	w_len = ft_strlen(game->info[game->we_index]);
-	e_len = ft_strlen(game->info[game->ea_index]);
-	game->n_path = ft_substr(game->info[game->no_index], 5, n_len - 6);
-	game->s_path = ft_substr(game->info[game->so_index], 5, s_len - 6);
-	game->w_path = ft_substr(game->info[game->we_index], 5, w_len - 6);
-	game->e_path = ft_substr(game->info[game->ea_index], 5, e_len - 6);
+	n_len = ft_strlen(trim_path(game->info[game->no_index]));
+	s_len = ft_strlen(trim_path(game->info[game->so_index]));
+	w_len = ft_strlen(trim_path(game->info[game->we_index]));
+	e_len = ft_strlen(trim_path(game->info[game->ea_index]));
+	game->n_path = ft_substr(trim_path(game->info[game->no_index]), 4, n_len - 4);
+	game->s_path = ft_substr(trim_path(game->info[game->so_index]), 4, s_len - 4);
+	game->w_path = ft_substr(trim_path(game->info[game->we_index]), 4, w_len - 4);
+	game->e_path = ft_substr(trim_path(game->info[game->ea_index]), 4, e_len - 4);
 	load_text_img(game);
 	pass_text_imgstruct(game);
 }
@@ -115,17 +115,18 @@ void get_colors_index(t_game *game)
 
 void	get_colors(t_game *game)
 {
-	int		i;
-	char	*temp;
+	char	*color;
+	int	f;
+	int c;
 
 	get_colors_index(game);
-	game->f_rgb_len = ft_strlen(game->info[i]);
-	temp = ft_substr(game->info[i], 2, game->f_rgb_len - 3);
-	game->f_rgb = ft_split(temp, ',');
-	free(temp);
-	game->c_rgb_len = ft_strlen(game->info[i]);
-	temp = ft_substr(game->info[i], 2, game->c_rgb_len - 3);
-	game->c_rgb = ft_split(temp, ',');
-	free(temp);
+	f = game->f_index;
+	c = game->c_index;
+	color = trim_color(game->info[f]);
+	game->f_rgb = ft_split(color, ',');
+	free(color);
+	color = trim_color(game->info[c]);
+	game->c_rgb = ft_split(color, ',');
+	free(color);
 	pass_colors(game);
 }
