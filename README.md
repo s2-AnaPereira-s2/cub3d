@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by thobias.*
+*This project has been created as part of the 42 curriculum by ana-pdos, thtinner.*
 
 # cub3d
 
@@ -10,10 +10,10 @@ The goal of the project is to:
 
 - Parse and validate a `.cub` configuration/map file.
 - Render a pseudo-3D scene in real time using raycasting.
-- Handle player movement/rotation and collision.
-- Display textures, floor/ceiling colors, and a minimap.
+- Handle player movement/rotation.
+- Display textures, floor/ceiling colors.
 
-This project focuses on low-level graphics programming, input handling, map parsing, and clean C architecture under strict coding constraints.
+This project focuses on low-level graphics programming, input handling, and map parsing.
 
 ## Features
 
@@ -80,16 +80,13 @@ Classic references used for learning and implementation:
 
 - MiniLibX documentation and project examples
 - 42 project subject for `cub3d`
-- Lode Vandevenne raycasting tutorial
-- Permadi raycasting articles
-- XPM format references for texture loading
+- https://www.youtube.com/watch?v=G9i78WoBBIU
+- https://www.youtube.com/watch?v=NbSee-XM7WA&t=89s
 
-### AI Usage Disclosure
+### AI Usage
 
-AI assistance was used as a development helper for:
+AI was used for:
 
-- Explaining and reviewing existing parsing/rendering code
-- Refactoring and style-oriented cleanup suggestions
-- Drafting/iterating parts of the project documentation (this README)
-
-AI was **not** used as a full replacement for implementation ownership; final integration, testing, and debugging decisions were made within the project workflow.
+- Explaining and reviewing concepts and existing code
+- Style-oriented cleanup suggestions
+- Drafting the project documentation (this README).
