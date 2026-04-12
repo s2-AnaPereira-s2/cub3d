@@ -45,7 +45,7 @@ int	load_text_img(t_game *game)
 		game->textures[i].img = mlx_xpm_file_to_image(game->mlx,
 				paths[i], &text_w, &text_h);
 		if (!game->textures[i].img)
-			return (ft_putstr_fd("Error\nFailed to load texture\n", 2),
+			return (ft_putstr_fd("Error: Failed to load texture\n", 2),
 				close_window(game), 1);
 		game->textures[i].width = text_w;
 		game->textures[i].height = text_h;

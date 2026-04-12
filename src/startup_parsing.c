@@ -78,8 +78,10 @@ int	startup_1(t_game *game)
 {
 	if (bad_extension(game) || get_info(game))
 		return (close_window(game), 1);
-	get_colors(game);
 	get_dir_textures(game);
+	if (bad_text_extension(game))
+		return (close_window(game), 1);
+	get_colors(game);
 	return (0);
 }
 

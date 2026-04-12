@@ -19,7 +19,7 @@ int	get_length(t_game *game)
 
 	game->fd = open(game->file_name, O_RDONLY);
 	if (game->fd < 0)
-		return (perror("Wrong file"), close_window(game), 1);
+		return (perror("Invalid file"), close_window(game), 1);
 	size = 0;
 	line = get_next_line(game->fd);
 	while (line)

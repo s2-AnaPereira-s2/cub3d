@@ -20,6 +20,7 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/start_map.c \
 	$(SRC_DIR)/parsing_map.c \
 	$(SRC_DIR)/parsing_texture_color.c \
+	$(SRC_DIR)/path_checks.c \
 	$(SRC_DIR)/move_player.c \
 	$(SRC_DIR)/map_checks.c \
 	$(SRC_DIR)/format_checks.c \

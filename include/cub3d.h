@@ -153,6 +153,7 @@ void		init_game(t_game *game, t_player *player);
 int			close_window(t_game *game);
 int			char_check(t_game *game);
 int			bad_extension(t_game *game);
+int			bad_text_extension(t_game *game);
 int			render_frame(void *param);
 void		get_dir_textures(t_game *game);
 void		get_colors(t_game *game);

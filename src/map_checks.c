@@ -71,7 +71,7 @@ int	map_check(t_game *game)
 	if (char_check(game))
 		return (close_window(game), 1);
 	if (game->p != 1)
-		return (ft_putstr_fd("Error\nInvalid number of players\n", 2),
+		return (ft_putstr_fd("Error: Invalid number of players\n", 2),
 			close_window(game), 1);
 	if (p_c_d_check(game))
 		return (1);
@@ -79,7 +79,7 @@ int	map_check(t_game *game)
 	while (game->map[y])
 	{
 		if (row_is_open(game, y))
-			return (ft_putstr_fd("Error\nMap is not surrounded by walls\n", 2),
+			return (ft_putstr_fd("Error: Map is not surrounded by walls\n", 2),
 				close_window(game), 1);
 		y++;
 	}

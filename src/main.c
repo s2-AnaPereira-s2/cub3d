@@ -16,18 +16,18 @@ static int	init_window_and_image(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		return (ft_putstr_fd("Error\nmlx_init failed\n", 2),
+		return (ft_putstr_fd("Error: mlx_init failed\n", 2),
 			close_window(game), 1);
 	init_win_wh(game);
 	game->win = mlx_new_window(game->mlx,
 			game->win_width, game->win_height, "Cub3d");
 	if (!game->win)
-		return (ft_putstr_fd("Error\nmlx_new_window failed\n", 2),
+		return (ft_putstr_fd("Error: mlx_new_window failed\n", 2),
 			close_window(game), 1);
 	game->screen.img = mlx_new_image(game->mlx,
 			game->win_width, game->win_height);
 	if (!game->screen.img)
-		return (ft_putstr_fd("Error\nmlx_new_image failed\n", 2),
+		return (ft_putstr_fd("Error: mlx_new_image failed\n", 2),
 			close_window(game), 1);
 	game->screen.addr = mlx_get_data_addr(game->screen.img,
 			&game->screen.bits_per_pixel,
