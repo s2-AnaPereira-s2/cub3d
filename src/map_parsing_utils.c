@@ -24,14 +24,18 @@ int	line_len_no_nl(char *line)
 
 char	map_at(t_game *game, int y, int x)
 {
-	int	len;
+	int		len;
+	char	c;
 
 	if (y < 0 || y >= game->map_height)
 		return (' ');
 	len = line_len_no_nl(game->map[y]);
 	if (x < 0 || x >= len)
 		return (' ');
-	return (game->map[y][x]);
+	c = game->map[y][x];
+	if (c == '\t')
+		return (' ');
+	return (c);
 }
 
 void	get_map_width(t_game *game)

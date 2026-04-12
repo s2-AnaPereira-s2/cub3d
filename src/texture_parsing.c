@@ -41,5 +41,3 @@ void	pass_text_index(t_game *game)
 		i++;
 	}
 }
-
-
