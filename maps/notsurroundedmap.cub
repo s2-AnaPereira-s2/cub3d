@@ -1,10 +1,10 @@
-NO ./textures/wall.xpm
-SO ./textures/grass.xpm
-WE ./textures/wall.xpm
-EA ./textures/wall.xpm
+NO ./textures/wall_n.xpm
+SO ./textures/wall_s.xpm
+WE ./textures/wall_w.xpm
+EA ./textures/wall_e.xpm
 
-F 220,100,0
-C 225,30,0
+F 34, 139, 34
+C 135, 206,235
 
         1111111111111111111111111
         1000000000110000000000001
