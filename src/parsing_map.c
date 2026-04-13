@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:38:45 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:38:47 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 18:29:49 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	find_map_start(t_game *game)
 	return (-1);
 }
 
-static void	copy_map(t_game *game, int map_start)
+static int	copy_map(t_game *game, int map_start)
 {
 	int	i;
 	int	j;
@@ -43,11 +43,14 @@ static void	copy_map(t_game *game, int map_start)
 	j = 0;
 	while (j < game->map_height)
 	{
+		if (is_empty_line(game->info[i]))
+			return 1;
 		game->map[j] = game->info[i];
 		i++;
 		j++;
 	}
 	game->map[j] = NULL;
+	return 0;
 }
 
 int	get_info(t_game *game)
@@ -110,7 +113,8 @@ int	get_map(t_game *game)
 	game->map = ft_calloc(sizeof(char *), game->map_height + 1);
 	if (!game->map || game->map_height == 0)
 		return (ft_putstr_fd("Error: No map\n", 2), close_window(game), 1);
-	copy_map(game, game->map_start);
+	if (copy_map(game, game->map_start))
+		return (ft_putstr_fd("Error: Map not closed\n", 2), close_window(game), 1);
 	get_map_width(game);
 	return (0);
 }

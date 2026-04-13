@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:44:42 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/13 15:51:46 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 18:29:08 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,5 +179,6 @@ void		draw_minimap(t_game *game);
 char		*trim_color(char *color);
 char		*trim_path(char *path);
 char		*trim_core(char *str, int skip_fc);
+int			is_empty_line(char *line);
 
 #endif

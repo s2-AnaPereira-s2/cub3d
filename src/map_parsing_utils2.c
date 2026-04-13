@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:38:15 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:38:18 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 18:28:35 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,19 @@ char	*trim_color(char *color)
 char	*trim_path(char *path)
 {
 	return (trim_core(path, 0));
+}
+
+int	is_empty_line(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] != '\n')
+	{
+		if (line[i] == ' ' || line[i] == '\t')
+			i++;
+		else
+			return 0;
+	}
+	return 1;
 }
