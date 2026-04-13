@@ -1,89 +1,61 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/09 15:39:14 by ana-pdos          #+#    #+#             */
+/*   Updated: 2026/04/09 15:39:18 by ana-pdos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void put_pixel(t_img *img, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
-    char *dst;
+	int	pixel_index;
 
-    if (x < 0 || y < 0 || x >= img->width || y >= img->height)
-        return;
-
-    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-    *(unsigned int *)dst = color;
+	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
+		return ;
+	pixel_index = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
+	img->addr[pixel_index] = color & 0xFF;
+	img->addr[pixel_index + 1] = (color >> 8) & 0xFF;
+	img->addr[pixel_index + 2] = (color >> 16) & 0xFF;
+	if (img->bits_per_pixel == 32)
+		img->addr[pixel_index + 3] = 0;
 }
 
-void draw_square(t_img *img, int x, int y, int size, int color)
+void	draw_background(t_game *game)
 {
-    int i, j;
+	int	x;
+	int	y;
 
-    for (i = 0; i < size; i++)
-    {
-        for (j = 0; j < size; j++)
-            put_pixel(img, x + j, y + i, color);
-    }
+	y = 0;
+	while (y < game->win_height)
+	{
+		x = 0;
+		while (x < game->win_width)
+		{
+			if (y < game->win_height / 2)
+				put_pixel(&game->screen, x++, y, game->c_color);
+			else
+				put_pixel(&game->screen, x++, y, game->f_color);
+		}
+		y++;
+	}
 }
 
-// Double check this I think I did it right, but check!
-void draw_background(t_game *game)
+int	render_frame(void *param)
 {
-    int x, y;
+	t_game	*game;
 
-    for (y = 0; y < game->win_height; y++)
-    {
-        for (x = 0; x < game->win_width; x++)
-        {
-            if (y < game->win_height / 2)
-                put_pixel(&game->screen, x, y, game->c_color); // ceiling
-            else
-                put_pixel(&game->screen, x, y, game->f_color); // floor
-        }
-    }
-}
-
-// I think its bonus I will double check this
-void draw_minimap(t_game *game)
-{
-    int y, x;
-    int color;
-
-    y = 0;
-    while (game->map[y])
-    {
-        x = 0;
-        while (game->map[y][x])
-        {
-            if (game->map[y][x] == '1')
-                color = 0xFFFFFF; // wall
-            else
-                color = 0x333333; // floor
-
-            draw_square(&game->screen,
-                MINI_OFFSET_X + x * TILE_SIZE,
-                MINI_OFFSET_Y + y * TILE_SIZE,
-                TILE_SIZE, color);
-            x++;
-        }
-        y++;
-    }
-}
-
-// I think this is bonus I will double check 
-void draw_player(t_game *game)
-{
-    int px = (int)(game->px * TILE_SIZE);
-    int py = (int)(game->py * TILE_SIZE);
-
-    draw_square(&game->screen, px, py, PLAYER_SIZE, 0xFF0000);
-}
-
-int render_frame(void *param)
-{
-    t_game *game = (t_game *)param;
-
-    draw_background(game);       // ceiling + floor
-    raycast(game, &game->player); // 3D walls
-    draw_minimap(game);          // 2D mini-map
-    draw_player(game);
-
-    mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
-    return (0);
+	game = (t_game *)param;
+	update_movement(game);
+	draw_background(game);
+	raycast(game, &game->player);
+	draw_minimap(game);
+	draw_player(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
+	return (0);
 }

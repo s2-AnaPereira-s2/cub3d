@@ -1,70 +1,87 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/09 15:36:18 by ana-pdos          #+#    #+#             */
+/*   Updated: 2026/04/09 15:36:25 by ana-pdos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
-// nothing has been cleaned. Program needs to check for leaks and close everything properly. I have to implement it yet!
+void	free_arrays(char **split)
+{
+	int	i;
 
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
 
-/*
 void	free_images(t_game *game)
 {
 	int	i;
 	int	size;
 
-	size = 11;
-	if (!imgs->img)
-		return ;
+	size = 4;
 	i = 0;
 	while (i < size)
 	{
-		if (imgs->img[i])
-			mlx_destroy_image(game->mlx, imgs->img[i]);
+		if (game->textures[i].img)
+		{
+			mlx_destroy_image(game->mlx, game->textures[i].img);
+			game->textures[i].img = NULL;
+		}
 		i++;
 	}
-	free(imgs->img);
-	imgs->img = NULL;
-}
-
-void	free_map_cpy(t_game *game)
-{
-	int	i;
-
-	if (!game->map_cpy)
-		return ;
-	i = 0;
-	while (game->map_cpy[i])
-	{
-		free(game->map_cpy[i]);
-		game->map_cpy[i] = NULL;
-		i++;
-	}
-	free(game->map_cpy);
-	game->map_cpy = NULL;
 }
 
 void	free_map(t_game *game)
 {
-	int	i;
-
-	i = 0;
 	if (!game->map)
 		return ;
-	while (game->map && game->map[i])
-	{
-		free(game->map[i]);
-		game->map[i] = NULL;
-		i++;
-	}
 	free(game->map);
-	free_map_cpy(game);
 	game->map = NULL;
-}*/
+}
+
+void	free_paths(t_game *game)
+{
+	free(game->n_path);
+	free(game->s_path);
+	free(game->e_path);
+	free(game->w_path);
+}
 
 int	close_window(t_game *game)
 {
+	free_images(game);
+	if (game->screen.img)
+		mlx_destroy_image(game->mlx, game->screen.img);
+	if (game->map)
+		free_map(game);
+	if (game->info)
+		free_arrays(game->info);
+	if (game->f_rgb)
+		free_arrays(game->f_rgb);
+	if (game->c_rgb)
+		free_arrays(game->c_rgb);
+	free_paths(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
-		free(game->mlx);  // skip mlx_destroy_display for now just to make it work
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
 	ft_printf("...bye bye!!!\n");
 	exit(0);
 	return (0);
