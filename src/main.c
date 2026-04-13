@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:37:48 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:37:50 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 16:49:42 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc <= 1)
-		return (0);
+	if (argc != 2)
+		return (ft_putstr_fd("Error: Invalid number of arguments\n", 2), 1);
 	init_game(&game, &game.player);
 	game.file_name = argv[1];
 	if (startup_1(&game))

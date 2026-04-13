@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:37:58 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/13 14:55:55 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 16:49:10 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	map_check(t_game *game)
 	while (game->map[y])
 	{
 		if (row_is_open(game, y))
-			return (ft_putstr_fd("Error: Invalid map\n", 2),
+			return (ft_putstr_fd("Error: Map not closed or not surrounded by walls\n", 2),
 				close_window(game), 1);
 		y++;
 	}
