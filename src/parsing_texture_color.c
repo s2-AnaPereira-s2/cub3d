@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:38:55 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/13 13:23:22 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 15:54:57 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,25 @@ void	get_colors_index(t_game *game)
 	}
 }
 
-void	get_colors(t_game *game)
+int	get_colors(t_game *game)
 {
 	char	*color;
 
 	get_colors_index(game);
-	if (game->c_num != 1 && game->f_num != 1)
-		return;
+	if (game->c_num != 1 || game->f_num != 1)
+		return (ft_putstr_fd("Error: Missing colors\n", 2), 1);
 	color = trim_color(game->info[game->f_index]);
 	game->f_rgb = ft_split(color, ',');
 	free(color);
 	color = trim_color(game->info[game->c_index]);
 	game->c_rgb = ft_split(color, ',');
 	free(color);
+	if (!game->f_rgb || !game->c_rgb 
+		|| !game->f_rgb[0] || !game->c_rgb[0])
+		return (ft_putstr_fd("Error: Missing colors\n", 2), 1);
 	game->f_color = (ft_atoi(game->f_rgb[0]) << 16)
 		| (ft_atoi(game->f_rgb[1]) << 8) | ft_atoi(game->f_rgb[2]);
 	game->c_color = (ft_atoi(game->c_rgb[0]) << 16)
 		| (ft_atoi(game->c_rgb[1]) << 8) | ft_atoi(game->c_rgb[2]);
+	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:44:42 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 17:07:50 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 15:51:46 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int			bad_extension(t_game *game);
 int			bad_text_extension(t_game *game);
 int			render_frame(void *param);
 void		get_dir_textures(t_game *game);
-void		get_colors(t_game *game);
+int			get_colors(t_game *game);
 void		raycast(t_game *game, t_player *player);
 int			load_text_img(t_game *game);
 void		perform_dda(t_game *game, t_ray *ray);
