@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:39:27 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:39:29 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 12:00:44 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	startup_1(t_game *game)
 	if (bad_extension(game) || get_info(game))
 		return (close_window(game), 1);
 	get_dir_textures(game);
+	get_colors(game);
 	if (bad_text_extension(game))
 		return (close_window(game), 1);
-	get_colors(game);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:37:26 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 18:30:54 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 13:01:45 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ static int	pathname_check(char *path)
 
 int	bad_text_extension(t_game *game)
 {
+	if (game->f_num != 1 || game->c_num != 1
+		|| game->no_num != 1 || game->so_num != 1
+		|| game->we_num != 1 || game->ea_num != 1)
+		return (ft_putstr_fd("Error: Invalid colors/textures count\n", 2),
+			close_window(game), 1);
 	if (ft_strlen(game->n_path) < 5 || ft_strlen(game->s_path) < 5
 		|| ft_strlen(game->w_path) < 5 || ft_strlen(game->e_path) < 5)
 		return (ft_putstr_fd("Error: Invalid path\n", 2),
@@ -79,5 +84,5 @@ int	bad_text_extension(t_game *game)
 		|| pathname_check(game->info[game->ea_index]))
 		return (ft_putstr_fd("Error: Invalid path\n", 2),
 			close_window(game), 1);
-	return (0);
+	return 0;
 }

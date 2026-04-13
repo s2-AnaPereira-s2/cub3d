@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:37:26 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 18:43:03 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 12:05:41 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ int	p_c_d_check(t_game *game)
 			close_window(game), 1);
 	if (colors_format(game))
 		return (ft_putstr_fd("Error: Invalid rgb colors numbers\n", 2),
-			close_window(game), 1);
-	if (game->f_num != 1 || game->c_num != 1
-		|| game->no_num != 1 || game->so_num != 1
-		|| game->we_num != 1 || game->ea_num != 1)
-		return (ft_putstr_fd("Error: Invalid colors/textures count\n", 2),
 			close_window(game), 1);
 	return (0);
 }

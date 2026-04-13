@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:38:55 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:38:57 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 13:23:22 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	get_colors(t_game *game)
 	char	*color;
 
 	get_colors_index(game);
+	if (game->c_num != 1 && game->f_num != 1)
+		return;
 	color = trim_color(game->info[game->f_index]);
 	game->f_rgb = ft_split(color, ',');
 	free(color);

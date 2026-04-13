@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:37:58 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:38:00 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 14:55:55 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	char_check(t_game *game)
 		while (game->map[i][j] != '\0' && game->map[i][j] != '\n')
 		{
 			if (!is_valid_map_char(game->map[i][j]))
-				return (ft_putstr_fd("Error\nWrong char in map\n", 2), 1);
+				return (ft_putstr_fd("Error: Wrong char in map\n", 2), 1);
 			j++;
 		}
 		i++;

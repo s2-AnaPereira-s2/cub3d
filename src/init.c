@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:37:32 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/09 15:37:34 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/13 13:14:55 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_textures(t_game *game)
 void	init_game(t_game *game, t_player *player)
 {
 	ft_bzero(game, sizeof(t_game));
+	game->f_index = -1;
 	game->fd = -1;
 	player->dir = ' ';
 	player->plane_x = 0.0;
