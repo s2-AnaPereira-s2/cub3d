@@ -180,5 +180,6 @@ char		*trim_color(char *color);
 char		*trim_path(char *path);
 char		*trim_core(char *str, int skip_fc);
 int			is_empty_line(char *line);
+int			is_rgb_numbers(char *rgb);
 
 #endif

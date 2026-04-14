@@ -114,6 +114,11 @@ int	get_colors(t_game *game)
 	if (!game->f_rgb || !game->c_rgb 
 		|| !game->f_rgb[0] || !game->c_rgb[0])
 		return (ft_putstr_fd("Error: Missing colors\n", 2), 1);
+	if (!is_rgb_numbers(game->f_rgb[0]) || !is_rgb_numbers(game->f_rgb[1]) 
+		|| !is_rgb_numbers(game->f_rgb[2])
+		|| !is_rgb_numbers(game->c_rgb[0]) || !is_rgb_numbers(game->c_rgb[1]) 
+		|| !is_rgb_numbers(game->c_rgb[2]))
+		return (ft_putstr_fd("Error: Only color number\n", 2), 1);
 	game->f_color = (ft_atoi(game->f_rgb[0]) << 16)
 		| (ft_atoi(game->f_rgb[1]) << 8) | ft_atoi(game->f_rgb[2]);
 	game->c_color = (ft_atoi(game->c_rgb[0]) << 16)

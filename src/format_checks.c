@@ -12,6 +12,20 @@
 
 #include "cub3d.h"
 
+int is_rgb_numbers(char *rgb)
+{
+	int i;
+
+	i = 0;
+	while (rgb[i])
+	{
+		if (!ft_isdigit(rgb[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static int	colors_format(t_game *game)
 {
 	if ((ft_atoi(game->f_rgb[0]) < 0 || ft_atoi(game->f_rgb[0]) > 255)
